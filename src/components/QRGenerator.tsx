@@ -13,7 +13,7 @@ import { generateFilename, sizeMap } from "../utils";
 
 const QRGenerator: React.FC = () => {
 	const [options, setOptions] = useState<QROptions>({
-		text: "https://example.com",
+		text: "",
 		size: "medium",
 		foregroundColor: "#000000",
 		backgroundColor: "#ffffff",
@@ -173,7 +173,7 @@ const QRGenerator: React.FC = () => {
 											}
 											className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
 											rows={3}
-											placeholder="Enter text or URL to generate QR code"
+											placeholder="Enter text or links to generate QR code"
 										/>
 									</div>
 								</div>
