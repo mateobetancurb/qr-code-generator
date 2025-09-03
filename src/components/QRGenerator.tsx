@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import type { QROptions } from "../interfaces";
-import { generateFilename } from "../helpers";
+import { generateFilename, sizeMap } from "../helpers";
 
 const QRGenerator: React.FC = () => {
 	const [options, setOptions] = useState<QROptions>({
@@ -23,12 +23,6 @@ const QRGenerator: React.FC = () => {
 	// const [logoFile, setLogoFile] = useState<File | null>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	// const fileInputRef = useRef<HTMLInputElement>(null);
-
-	const sizeMap = {
-		small: 200,
-		medium: 300,
-		large: 400,
-	};
 
 	const generateQRCode = async (logoDataURL?: string) => {
 		if (!options.text.trim()) return;
@@ -271,7 +265,11 @@ const QRGenerator: React.FC = () => {
 									onChange={(e) =>
 										setOptions({
 											...options,
-											size: e.target.value as "small" | "medium" | "large",
+											size: e.target.value as
+												| "small"
+												| "medium"
+												| "large"
+												| "xlarge",
 										})
 									}
 									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
@@ -279,6 +277,7 @@ const QRGenerator: React.FC = () => {
 									<option value="small">Small (200x200)</option>
 									<option value="medium">Medium (300x300)</option>
 									<option value="large">Large (400x400)</option>
+									<option value="xlarge">Extra Large (500x500)</option>
 								</select>
 							</div>
 
