@@ -1,5 +1,5 @@
 import React from "react";
-import { QrCode, Github, Twitter, Linkedin, Mail, Heart } from "lucide-react";
+import { QrCode, Github, Twitter, Linkedin, Heart } from "lucide-react";
 
 const Footer: React.FC = () => {
 	const scrollToSection = (sectionId: string) => {
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
 						</p>
 						<div className="flex space-x-4">
 							<a
-								href="https://github.com"
+								href="https://github.com/mateobetancurb"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
 								<Github className="w-5 h-5" />
 							</a>
 							<a
-								href="https://twitter.com"
+								href="https://twitter.com/mateobetancurb"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
@@ -47,18 +47,12 @@ const Footer: React.FC = () => {
 								<Twitter className="w-5 h-5" />
 							</a>
 							<a
-								href="https://linkedin.com"
+								href="https://linkedin.com/in/mateobetancurb"
 								target="_blank"
 								rel="noopener noreferrer"
 								className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
 							>
 								<Linkedin className="w-5 h-5" />
-							</a>
-							<a
-								href="mailto:contact@qrgen.com"
-								className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
-							>
-								<Mail className="w-5 h-5" />
 							</a>
 						</div>
 					</div>
