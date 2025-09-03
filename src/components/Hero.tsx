@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
 					{/* cta button */}
 					<button
 						onClick={scrollToGenerator}
-						className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 via-sky-500 to-blue-600 hover:from-blue-600 hover:via-sky-600 hover:to-blue-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 animate-slide-up animation-delay-300 overflow-hidden"
+						className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 via-sky-500 to-blue-600 hover:from-blue-600 hover:via-sky-600 hover:to-blue-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 animate-slide-up animation-delay-300 overflow-hidden hover:cursor-pointer"
 					>
 						<div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 						<span className="relative z-10 flex items-center">
