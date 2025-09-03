@@ -1,65 +1,7 @@
 import React from "react";
-import {
-	Zap,
-	Palette,
-	Download,
-	Shield,
-	Smartphone,
-	Globe,
-} from "lucide-react";
+import { features } from "../utils";
 
 const Features: React.FC = () => {
-	const features = [
-		{
-			icon: Zap,
-			title: "Lightning Fast",
-			description:
-				"Generate QR codes instantly with real-time preview. No waiting, no delays.",
-			color: "text-yellow-500",
-			bgColor: "bg-yellow-100 dark:bg-yellow-900/20",
-		},
-		{
-			icon: Palette,
-			title: "Custom Colors",
-			description:
-				"Personalize your QR codes with custom foreground and background colors.",
-			color: "text-purple-500",
-			bgColor: "bg-purple-100 dark:bg-purple-900/20",
-		},
-		{
-			icon: Download,
-			title: "Multiple Formats",
-			description:
-				"Download your QR codes in PNG or SVG format for any use case.",
-			color: "text-blue-500",
-			bgColor: "bg-blue-100 dark:bg-blue-900/20",
-		},
-		{
-			icon: Shield,
-			title: "Privacy First",
-			description:
-				"All QR codes are generated locally in your browser. Your data never leaves your device.",
-			color: "text-blue-500",
-			bgColor: "bg-blue-100 dark:bg-blue-900/20",
-		},
-		{
-			icon: Smartphone,
-			title: "Mobile Friendly",
-			description:
-				"Fully responsive design works perfectly on desktop, tablet, and mobile devices.",
-			color: "text-red-500",
-			bgColor: "bg-red-100 dark:bg-red-900/20",
-		},
-		{
-			icon: Globe,
-			title: "No Registration",
-			description:
-				"Start generating QR codes immediately. No account needed, completely free.",
-			color: "text-indigo-500",
-			bgColor: "bg-indigo-100 dark:bg-indigo-900/20",
-		},
-	];
-
 	return (
 		<section
 			id="features"
@@ -81,7 +23,7 @@ const Features: React.FC = () => {
 						const Icon = feature.icon;
 						return (
 							<div
-								key={feature.title}
+								key={feature.id}
 								className="group bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 border border-gray-100 dark:border-gray-700 animate-slide-up"
 								style={{ animationDelay: `${index * 100}ms` }}
 							>
