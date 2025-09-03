@@ -39,8 +39,8 @@ const Features: React.FC = () => {
 			title: "Privacy First",
 			description:
 				"All QR codes are generated locally in your browser. Your data never leaves your device.",
-			color: "text-green-500",
-			bgColor: "bg-green-100 dark:bg-green-900/20",
+			color: "text-blue-500",
+			bgColor: "bg-blue-100 dark:bg-blue-900/20",
 		},
 		{
 			icon: Smartphone,
@@ -102,26 +102,26 @@ const Features: React.FC = () => {
 				</div>
 
 				{/* Stats Section */}
-				<div className="mt-20 bg-gradient-to-r from-green-500 to-green-600 rounded-3xl p-12 text-center">
+				<div className="mt-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl p-12 text-center">
 					<h3 className="text-3xl md:text-4xl font-bold text-white mb-8">
 						Trusted by Thousands
 					</h3>
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">10,000+</div>
-							<div className="text-green-100">QR Codes Generated</div>
+							<div className="text-blue-100">QR Codes Generated</div>
 						</div>
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">50+</div>
-							<div className="text-green-100">Countries</div>
+							<div className="text-blue-100">Countries</div>
 						</div>
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">99.9%</div>
-							<div className="text-green-100">Uptime</div>
+							<div className="text-blue-100">Uptime</div>
 						</div>
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">100%</div>
-							<div className="text-green-100">Free Forever</div>
+							<div className="text-blue-100">Free Forever</div>
 						</div>
 					</div>
 				</div>
