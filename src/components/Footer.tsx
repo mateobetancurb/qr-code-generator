@@ -92,14 +92,17 @@ const Footer: React.FC = () => {
 				{/* bottom bar */}
 				<div className="border-t border-gray-800 mt-12 pt-8">
 					<div className="flex flex-col md:flex-row items-center justify-between">
-						<div className="flex items-center text-gray-400 mb-4 md:mb-0">
-							<span>© {new Date().getFullYear()} QRGen. Made with </span>
-							<Heart className="w-4 h-4 mx-1 text-red-500" />
-							<span>for the community by Mateo</span>
+						<div className="flex flex-col items-center">
+							<div className="flex items-center text-gray-400 mb-4 md:mb-0">
+								<span>© {new Date().getFullYear()} QRGenerator</span>
+							</div>
+							<p className="text-gray-400 mb-4 md:mb-0">
+								Made with 💙 for the community by Mateo
+							</p>
 						</div>
-						<div className="text-gray-400 text-sm">
+						<p className="text-gray-400">
 							All QR codes generated locally in your browser
-						</div>
+						</p>
 					</div>
 				</div>
 			</div>
