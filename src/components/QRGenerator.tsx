@@ -154,7 +154,7 @@ const QRGenerator: React.FC = () => {
 						<div className="space-y-6">
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-									<Link className="w-5 h-5 mr-2 text-green-500" />
+									<Link className="w-5 h-5 mr-2 text-blue-500" />
 									Content
 								</h3>
 								<div className="space-y-4">
@@ -171,7 +171,7 @@ const QRGenerator: React.FC = () => {
 											onChange={(e) =>
 												setOptions({ ...options, text: e.target.value })
 											}
-											className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
+											className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
 											rows={3}
 											placeholder="Enter text or URL to generate QR code"
 										/>
@@ -257,7 +257,7 @@ const QRGenerator: React.FC = () => {
 							</div> */}
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-									<Resize className="w-5 h-5 mr-2 text-green-500" />
+									<Resize className="w-5 h-5 mr-2 text-blue-500" />
 									Size
 								</h3>
 								<select
@@ -272,7 +272,7 @@ const QRGenerator: React.FC = () => {
 												| "xlarge",
 										})
 									}
-									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
+									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
 								>
 									<option value="small">Small (200x200)</option>
 									<option value="medium">Medium (300x300)</option>
@@ -283,7 +283,7 @@ const QRGenerator: React.FC = () => {
 
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-									<Palette className="w-5 h-5 mr-2 text-green-500" />
+									<Palette className="w-5 h-5 mr-2 text-blue-500" />
 									Colors
 								</h3>
 								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -316,7 +316,7 @@ const QRGenerator: React.FC = () => {
 														foregroundColor: e.target.value,
 													})
 												}
-												className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
+												className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
 											/>
 										</div>
 									</div>
@@ -349,7 +349,7 @@ const QRGenerator: React.FC = () => {
 														backgroundColor: e.target.value,
 													})
 												}
-												className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
+												className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
 											/>
 										</div>
 									</div>
@@ -384,7 +384,7 @@ const QRGenerator: React.FC = () => {
 									<div className="flex flex-col sm:flex-row gap-4 justify-center">
 										<button
 											onClick={() => downloadQR("png")}
-											className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
+											className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
 										>
 											<Download className="w-5 h-5 mr-2" />
 											Download PNG
