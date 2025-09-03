@@ -91,8 +91,12 @@ const Header: React.FC = () => {
 				</div>
 
 				{/* mobile menu */}
-				{isMenuOpen && (
-					<div className="md:hidden mt-4 py-4 border-t border-gray-200 dark:border-gray-700 animate-fade-in">
+				<div
+					className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out border-t border-gray-200 dark:border-gray-700 ${
+						isMenuOpen ? "max-h-64 opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"
+					}`}
+				>
+					<div className="py-4">
 						<nav className="flex flex-col space-y-4">
 							<button
 								onClick={() => scrollToSection("home")}
@@ -120,7 +124,7 @@ const Header: React.FC = () => {
 							</button>
 						</nav>
 					</div>
-				)}
+				</div>
 			</div>
 		</header>
 	);
