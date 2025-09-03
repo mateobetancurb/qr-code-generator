@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import type { QROptions } from "../interfaces";
+import { generateFilename } from "../helpers";
 
 const QRGenerator: React.FC = () => {
 	const [options, setOptions] = useState<QROptions>({
@@ -110,9 +111,10 @@ const QRGenerator: React.FC = () => {
 	}, [options]);
 
 	const downloadQR = (format: "png" | "svg") => {
+		const filename = generateFilename(options.text);
 		if (format === "png" && qrCodeDataURL) {
 			const link = document.createElement("a");
-			link.download = "qrcode.png";
+			link.download = `${filename}.png`;
 			link.href = qrCodeDataURL;
 			link.click();
 		} else if (format === "svg") {
@@ -127,7 +129,7 @@ const QRGenerator: React.FC = () => {
 			}).then((svg) => {
 				const blob = new Blob([svg], { type: "image/svg+xml" });
 				const link = document.createElement("a");
-				link.download = "qrcode.svg";
+				link.download = `${filename}.svg`;
 				link.href = URL.createObjectURL(blob);
 				link.click();
 				URL.revokeObjectURL(link.href);
