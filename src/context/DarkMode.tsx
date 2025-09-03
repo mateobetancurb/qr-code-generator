@@ -20,21 +20,34 @@ export const useDarkMode = () => {
 export const DarkModeProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [isDarkMode, setIsDarkMode] = useState(false);
-
-	useEffect(() => {
-		const savedMode = localStorage.getItem("darkMode");
-		if (savedMode) {
-			setIsDarkMode(JSON.parse(savedMode));
+	const [isDarkMode, setIsDarkMode] = useState(() => {
+		// Initialize based on localStorage or system preference
+		if (typeof window !== "undefined") {
+			const savedMode = localStorage.getItem("darkMode");
+			if (savedMode !== null) {
+				return JSON.parse(savedMode);
+			}
+			// Check system preference if no saved mode
+			return window.matchMedia("(prefers-color-scheme: dark)").matches;
 		}
-	}, []);
+		return false;
+	});
 
+	// Apply theme class immediately on mount and when isDarkMode changes
 	useEffect(() => {
-		localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
-		if (isDarkMode) {
-			document.documentElement.classList.add("dark");
-		} else {
-			document.documentElement.classList.remove("dark");
+		if (typeof window !== "undefined") {
+			if (isDarkMode) {
+				document.documentElement.classList.add("dark");
+			} else {
+				document.documentElement.classList.remove("dark");
+			}
+		}
+	}, [isDarkMode]);
+
+	// Save to localStorage when isDarkMode changes
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			localStorage.setItem("darkMode", JSON.stringify(isDarkMode));
 		}
 	}, [isDarkMode]);
 
