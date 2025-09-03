@@ -62,6 +62,26 @@
 		/>
 	</head>
 	<body>
+		<script>
+			// prevent FOUC by applying dark mode class before react loads
+			(function () {
+				const savedMode = localStorage.getItem("darkMode");
+				if (savedMode !== null) {
+					const isDark = JSON.parse(savedMode);
+					if (isDark) {
+						document.documentElement.classList.add("dark");
+					}
+				} else {
+					// check system preference if no saved mode
+					const prefersDark = window.matchMedia(
+						"(prefers-color-scheme: dark)"
+					).matches;
+					if (prefersDark) {
+						document.documentElement.classList.add("dark");
+					}
+				}
+			})();
+		</script>
 		<div id="root"></div>
 		<script type="module" src="/src/main.tsx"></script>
 	</body>
