@@ -1,5 +1,5 @@
 import React from "react";
-import { QrCode, Github, Twitter, Linkedin, Heart } from "lucide-react";
+import { QrCode, Github, Twitter, Linkedin } from "lucide-react";
 
 const Footer: React.FC = () => {
 	const scrollToSection = (sectionId: string) => {
