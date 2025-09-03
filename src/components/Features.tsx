@@ -10,7 +10,7 @@ const Features: React.FC = () => {
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-16">
 					<h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-						Why Choose QRGen?
+						Why Choose this tool?
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
 						Powerful features designed to make QR code generation simple, fast,
