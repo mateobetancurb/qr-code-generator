@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
 						<p className="text-gray-300 mb-6 max-w-md leading-relaxed">
 							Generate beautiful, customizable QR codes instantly. Fast, free,
 							and privacy-focused. Perfect for businesses, events, and personal
-							use.
+							use
 						</p>
 						<div className="flex space-x-4">
 							<a
@@ -95,7 +95,7 @@ const Footer: React.FC = () => {
 						<div className="flex items-center text-gray-400 mb-4 md:mb-0">
 							<span>© {new Date().getFullYear()} QRGen. Made with </span>
 							<Heart className="w-4 h-4 mx-1 text-red-500" />
-							<span>for the community</span>
+							<span>for the community by Mateo</span>
 						</div>
 						<div className="text-gray-400 text-sm">
 							All QR codes generated locally in your browser
