@@ -4,8 +4,8 @@ import {
 	Palette,
 	Maximize as Resize,
 	Link,
-	Upload,
-	X,
+	// Upload,
+	// X,
 } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import type { QROptions } from "../interfaces";
@@ -20,9 +20,9 @@ const QRGenerator: React.FC = () => {
 		logo: undefined,
 	});
 	const [qrCodeDataURL, setQrCodeDataURL] = useState<string>("");
-	const [logoFile, setLogoFile] = useState<File | null>(null);
+	// const [logoFile, setLogoFile] = useState<File | null>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const fileInputRef = useRef<HTMLInputElement>(null);
+	// const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const sizeMap = {
 		small: 200,
@@ -86,26 +86,27 @@ const QRGenerator: React.FC = () => {
 		}
 	};
 
-	const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		if (file && file.type.startsWith("image/")) {
-			setLogoFile(file);
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				const logoDataURL = e.target?.result as string;
-				setOptions({ ...options, logo: logoDataURL });
-			};
-			reader.readAsDataURL(file);
-		}
-	};
+	// const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	const file = event.target.files?.[0];
+	// 	if (file && file.type.startsWith("image/")) {
+	// 		setLogoFile(file);
+	// 		const reader = new FileReader();
+	// 		reader.onload = (e) => {
+	// 			const logoDataURL = e.target?.result as string;
+	// 			setOptions({ ...options, logo: logoDataURL });
+	// 		};
+	// 		reader.readAsDataURL(file);
+	// 	}
+	// };
 
-	const removeLogo = () => {
-		setLogoFile(null);
-		setOptions({ ...options, logo: undefined });
-		if (fileInputRef.current) {
-			fileInputRef.current.value = "";
-		}
-	};
+	// const removeLogo = () => {
+	// 	setLogoFile(null);
+	// 	setOptions({ ...options, logo: undefined });
+	// 	if (fileInputRef.current) {
+	// 		fileInputRef.current.value = "";
+	// 	}
+	// };
+
 	useEffect(() => {
 		generateQRCode(options.logo);
 	}, [options]);
@@ -184,7 +185,7 @@ const QRGenerator: React.FC = () => {
 								</div>
 							</div>
 
-							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+							{/* <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
 									<Upload className="w-5 h-5 mr-2 text-green-500" />
 									Brand Logo
@@ -259,7 +260,7 @@ const QRGenerator: React.FC = () => {
 										</div>
 									)}
 								</div>
-							</div>
+							</div> */}
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
 									<Resize className="w-5 h-5 mr-2 text-green-500" />
