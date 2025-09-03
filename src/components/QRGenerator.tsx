@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import type { QROptions } from "../interfaces";
-import { generateFilename, sizeMap } from "../helpers";
+import { generateFilename, sizeMap } from "../utils";
 
 const QRGenerator: React.FC = () => {
 	const [options, setOptions] = useState<QROptions>({
