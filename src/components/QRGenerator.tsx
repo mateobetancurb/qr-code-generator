@@ -171,7 +171,7 @@ const QRGenerator: React.FC = () => {
 											onChange={(e) =>
 												setOptions({ ...options, text: e.target.value })
 											}
-											className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
+											className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-white transition-all duration-200"
 											rows={3}
 											placeholder="Enter text or links to generate QR code"
 										/>
