@@ -19,7 +19,7 @@ const Header: React.FC = () => {
 			<div className="container mx-auto px-4 py-4">
 				<div className="flex items-center justify-between">
 					<div className="flex items-center space-x-2">
-						<div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
+						<div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
 							<QrCode className="w-6 h-6 text-white" />
 						</div>
 						<span className="text-xl font-bold text-gray-800 dark:text-white">
@@ -31,25 +31,25 @@ const Header: React.FC = () => {
 					<nav className="hidden md:flex items-center space-x-8">
 						<button
 							onClick={() => scrollToSection("home")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
+							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Home
 						</button>
 						<button
 							onClick={() => scrollToSection("generator")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
+							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Generate QR
 						</button>
 						<button
 							onClick={() => scrollToSection("features")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
+							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Features
 						</button>
 						<button
 							onClick={() => scrollToSection("contact")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
+							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Contact
 						</button>
@@ -100,25 +100,25 @@ const Header: React.FC = () => {
 						<nav className="flex flex-col space-y-4">
 							<button
 								onClick={() => scrollToSection("home")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
 							>
 								Home
 							</button>
 							<button
 								onClick={() => scrollToSection("generator")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
 							>
 								Generate QR
 							</button>
 							<button
 								onClick={() => scrollToSection("features")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
 							>
 								Features
 							</button>
 							<button
 								onClick={() => scrollToSection("contact")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
 							>
 								Contact
 							</button>
