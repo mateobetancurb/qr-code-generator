@@ -15,21 +15,21 @@ const Footer: React.FC = () => {
 			className="bg-gray-900 dark:bg-black text-white transition-colors duration-300"
 		>
 			<div className="container mx-auto px-4 py-16">
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div className="md:flex md:justify-between">
 					{/* brand */}
 					<div className="lg:col-span-2">
 						<div className="flex items-center space-x-2 mb-4">
 							<div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
 								<QrCode className="w-6 h-6 text-white" />
 							</div>
-							<span className="text-2xl font-bold">QRGen</span>
+							<span className="text-2xl font-bold">QRGenerator</span>
 						</div>
 						<p className="text-gray-300 mb-6 max-w-md leading-relaxed">
 							Generate beautiful, customizable QR codes instantly. Fast, free,
 							and privacy-focused. Perfect for businesses, events, and personal
 							use
 						</p>
-						<div className="flex space-x-4">
+						<div className="flex space-x-4 mb-5 md:mb-0">
 							<a
 								href="https://github.com/mateobetancurb"
 								target="_blank"
