@@ -23,7 +23,7 @@ const Header: React.FC = () => {
 							<QrCode className="w-6 h-6 text-white" />
 						</div>
 						<span className="text-xl font-bold text-gray-800 dark:text-white">
-							QRGen
+							QRGenerator
 						</span>
 					</div>
 
@@ -31,31 +31,31 @@ const Header: React.FC = () => {
 					<nav className="hidden md:flex items-center space-x-8">
 						<button
 							onClick={() => scrollToSection("home")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Home
 						</button>
 						<button
 							onClick={() => scrollToSection("generator")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Generate QR
 						</button>
 						<button
 							onClick={() => scrollToSection("features")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Features
 						</button>
 						<button
 							onClick={() => scrollToSection("contact")}
-							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200"
+							className="text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
 						>
 							Contact
 						</button>
 						<button
 							onClick={toggleDarkMode}
-							className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
+							className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 hover:cursor-pointer"
 						>
 							{isDarkMode ? (
 								<Sun className="w-5 h-5 text-yellow-500" />
