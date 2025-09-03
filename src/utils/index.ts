@@ -24,3 +24,10 @@ export const generateFilename = (text: string): string => {
 		return filename || "qrcode";
 	}
 };
+
+export const sizeMap = {
+	small: 200,
+	medium: 300,
+	large: 400,
+	xlarge: 500,
+};
