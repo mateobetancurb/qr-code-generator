@@ -1,4 +1,3 @@
-import React, { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode";
 import {
 	Download,
@@ -8,14 +7,8 @@ import {
 	Upload,
 	X,
 } from "lucide-react";
-
-interface QROptions {
-	text: string;
-	size: "small" | "medium" | "large";
-	foregroundColor: string;
-	backgroundColor: string;
-	logo?: string;
-}
+import React, { useState, useEffect, useRef } from "react";
+import type { QROptions } from "../interfaces";
 
 const QRGenerator: React.FC = () => {
 	const [options, setOptions] = useState<QROptions>({
