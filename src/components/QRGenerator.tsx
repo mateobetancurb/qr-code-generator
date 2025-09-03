@@ -384,14 +384,14 @@ const QRGenerator: React.FC = () => {
 									<div className="flex flex-col sm:flex-row gap-4 justify-center">
 										<button
 											onClick={() => downloadQR("png")}
-											className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+											className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
 										>
 											<Download className="w-5 h-5 mr-2" />
 											Download PNG
 										</button>
 										<button
 											onClick={() => downloadQR("svg")}
-											className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+											className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
 										>
 											<Download className="w-5 h-5 mr-2" />
 											Download SVG
