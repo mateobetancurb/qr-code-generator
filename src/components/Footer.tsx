@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
 					{/* brand */}
 					<div className="lg:col-span-2">
 						<div className="flex items-center space-x-2 mb-4">
-							<div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-lg flex items-center justify-center">
+							<div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
 								<QrCode className="w-6 h-6 text-white" />
 							</div>
 							<span className="text-2xl font-bold">QRGen</span>
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
 								href="https://github.com/mateobetancurb"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
+								className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
 							>
 								<Github className="w-5 h-5" />
 							</a>
@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
 								href="https://twitter.com/mateobetancurb"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
+								className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
 							>
 								<Twitter className="w-5 h-5" />
 							</a>
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
 								href="https://linkedin.com/in/mateobetancurb"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-full flex items-center justify-center transition-colors duration-200"
+								className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
 							>
 								<Linkedin className="w-5 h-5" />
 							</a>
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
 							<li>
 								<button
 									onClick={() => scrollToSection("home")}
-									className="text-gray-300 hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
+									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
 									Home
 								</button>
@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
 							<li>
 								<button
 									onClick={() => scrollToSection("generator")}
-									className="text-gray-300 hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
+									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
 									QR Generator
 								</button>
@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
 							<li>
 								<button
 									onClick={() => scrollToSection("features")}
-									className="text-gray-300 hover:text-green-400 transition-colors duration-200 hover:cursor-pointer"
+									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
 									Features
 								</button>
