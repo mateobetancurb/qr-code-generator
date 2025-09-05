@@ -272,7 +272,7 @@ const QRGenerator: React.FC = () => {
 												| "xlarge",
 										})
 									}
-									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200"
+									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200 hover:cursor-pointer"
 								>
 									<option value="small">Small (200x200)</option>
 									<option value="medium">Medium (300x300)</option>
