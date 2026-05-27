@@ -1,5 +1,6 @@
 import React from "react";
-import { QrCode, Github, Twitter, Linkedin } from "lucide-react";
+import { QrCode } from "lucide-react";
+import { GithubIcon, LinkedinIcon, TwitterIcon } from "./SocialIcons";
 
 const Footer: React.FC = () => {
 	const scrollToSection = (sectionId: string) => {
@@ -35,7 +36,7 @@ const Footer: React.FC = () => {
 								rel="noopener noreferrer"
 								className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
 							>
-								<Github className="w-5 h-5" />
+								<GithubIcon className="w-5 h-5" />
 							</a>
 							<a
 								href="https://twitter.com/mateobetancurb"
@@ -43,7 +44,7 @@ const Footer: React.FC = () => {
 								rel="noopener noreferrer"
 								className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
 							>
-								<Twitter className="w-5 h-5" />
+								<TwitterIcon className="w-5 h-5" />
 							</a>
 							<a
 								href="https://linkedin.com/in/mateobetancurb"
@@ -51,7 +52,7 @@ const Footer: React.FC = () => {
 								rel="noopener noreferrer"
 								className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
 							>
-								<Linkedin className="w-5 h-5" />
+								<LinkedinIcon className="w-5 h-5" />
 							</a>
 						</div>
 					</div>
