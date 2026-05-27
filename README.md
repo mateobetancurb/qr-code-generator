@@ -94,10 +94,10 @@ The heart of the application — handles:
 
 #### Context Providers
 
-| Provider | Responsibility |
-|---|---|
+| Provider       | Responsibility                                                         |
+| -------------- | ---------------------------------------------------------------------- |
 | `DarkMode.tsx` | System preference detection, localStorage persistence, theme switching |
-| `Locale.tsx` | Language selection (EN/ES), localStorage persistence, locale switching |
+| `Locale.tsx`   | Language selection (EN/ES), localStorage persistence, locale switching |
 
 #### i18n Layer
 
@@ -176,14 +176,14 @@ The built files will be in the `dist` directory.
 
 ### Project Scripts
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Type-check and build for production |
-| `pnpm preview` | Preview production build |
-| `pnpm lint` | Run oxlint |
-| `pnpm format` | Run oxfmt formatter |
-| `pnpm format:check` | Check formatting without writing |
+| Command             | Description                         |
+| ------------------- | ----------------------------------- |
+| `pnpm dev`          | Start development server            |
+| `pnpm build`        | Type-check and build for production |
+| `pnpm preview`      | Preview production build            |
+| `pnpm lint`         | Run oxlint                          |
+| `pnpm format`       | Run oxfmt formatter                 |
+| `pnpm format:check` | Check formatting without writing    |
 
 ### Code Quality
 
