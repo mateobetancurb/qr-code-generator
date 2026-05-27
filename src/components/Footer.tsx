@@ -1,8 +1,11 @@
 import React from "react";
 import { QrCode } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "./SocialIcons";
+import { useLocale } from "../context/Locale";
 
 const Footer: React.FC = () => {
+	const { t } = useLocale();
+
 	const scrollToSection = (sectionId: string) => {
 		const element = document.getElementById(sectionId);
 		if (element) {
@@ -25,10 +28,7 @@ const Footer: React.FC = () => {
 							</div>
 							<span className="text-2xl font-bold">QRGenerator</span>
 						</div>
-						<p className="text-gray-300 mb-6 max-w-md leading-relaxed">
-							Generate beautiful, customizable QR codes instantly. Fast, free, and privacy-focused.
-							Perfect for businesses, events, and personal use
-						</p>
+						<p className="text-gray-300 mb-6 max-w-md leading-relaxed">{t.footer.tagline}</p>
 						<div className="flex space-x-4 mb-5 md:mb-0">
 							<a
 								href="https://github.com/mateobetancurb"
@@ -59,14 +59,14 @@ const Footer: React.FC = () => {
 
 					{/* quick links */}
 					<div>
-						<h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+						<h3 className="text-lg font-semibold mb-4">{t.footer.quickLinks}</h3>
 						<ul className="space-y-2">
 							<li>
 								<button
 									onClick={() => scrollToSection("home")}
 									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
-									Home
+									{t.footer.home}
 								</button>
 							</li>
 							<li>
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
 									onClick={() => scrollToSection("generator")}
 									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
-									QR Generator
+									{t.footer.qrGenerator}
 								</button>
 							</li>
 							<li>
@@ -82,7 +82,7 @@ const Footer: React.FC = () => {
 									onClick={() => scrollToSection("features")}
 									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
-									Features
+									{t.footer.features}
 								</button>
 							</li>
 						</ul>
@@ -94,11 +94,13 @@ const Footer: React.FC = () => {
 					<div className="flex flex-col md:flex-row items-center justify-between">
 						<div className="flex flex-col items-center">
 							<div className="flex items-center text-gray-400 mb-4 md:mb-0">
-								<span>© {new Date().getFullYear()} QRGenerator</span>
+								<span>
+									{t.footer.copyright.replace("{year}", String(new Date().getFullYear()))}
+								</span>
 							</div>
-							<p className="text-gray-400 mb-4 md:mb-0">Made with 💙 for the community by Mateo</p>
+							<p className="text-gray-400 mb-4 md:mb-0">{t.footer.madeWith}</p>
 						</div>
-						<p className="text-gray-400">All QR codes generated locally in your browser</p>
+						<p className="text-gray-400">{t.footer.locallyGenerated}</p>
 					</div>
 				</div>
 			</div>

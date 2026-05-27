@@ -10,8 +10,10 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import type { QROptions } from "../interfaces";
 import { generateFilename, sizeMap } from "../utils";
+import { useLocale } from "../context/Locale";
 
 const QRGenerator: React.FC = () => {
+	const { t } = useLocale();
 	const [options, setOptions] = useState<QROptions>({
 		text: "",
 		size: "medium",
@@ -135,10 +137,10 @@ const QRGenerator: React.FC = () => {
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-12">
 					<h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-						QR Code Generator
+						{t.generator.title}
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-						Customize your QR code with different sizes, colors, and download formats
+						{t.generator.subtitle}
 					</p>
 				</div>
 
@@ -149,7 +151,7 @@ const QRGenerator: React.FC = () => {
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
 									<Link className="w-5 h-5 mr-2 text-blue-500" />
-									Content
+									{t.generator.content}
 								</h3>
 								<div className="space-y-4">
 									<div>
@@ -157,7 +159,7 @@ const QRGenerator: React.FC = () => {
 											htmlFor="text"
 											className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
 										>
-											Text or URL
+											{t.generator.textOrUrl}
 										</label>
 										<textarea
 											id="text"
@@ -165,7 +167,7 @@ const QRGenerator: React.FC = () => {
 											onChange={(e) => setOptions({ ...options, text: e.target.value })}
 											className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-white transition-all duration-200"
 											rows={3}
-											placeholder="Enter text or links to generate QR code"
+											placeholder={t.generator.placeholder}
 										/>
 									</div>
 								</div>
@@ -250,7 +252,7 @@ const QRGenerator: React.FC = () => {
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
 									<Resize className="w-5 h-5 mr-2 text-blue-500" />
-									Size
+									{t.generator.size}
 								</h3>
 								<select
 									value={options.size}
@@ -262,17 +264,17 @@ const QRGenerator: React.FC = () => {
 									}
 									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200 hover:cursor-pointer"
 								>
-									<option value="small">Small (200x200)</option>
-									<option value="medium">Medium (300x300)</option>
-									<option value="large">Large (400x400)</option>
-									<option value="xlarge">Extra Large (500x500)</option>
+									<option value="small">{t.generator.sizeSmall}</option>
+									<option value="medium">{t.generator.sizeMedium}</option>
+									<option value="large">{t.generator.sizeLarge}</option>
+									<option value="xlarge">{t.generator.sizeXlarge}</option>
 								</select>
 							</div>
 
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
 									<Palette className="w-5 h-5 mr-2 text-blue-500" />
-									Colors
+									{t.generator.colors}
 								</h3>
 								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 									<div>
@@ -280,7 +282,7 @@ const QRGenerator: React.FC = () => {
 											htmlFor="foreground"
 											className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
 										>
-											Foreground
+											{t.generator.foreground}
 										</label>
 										<div className="flex items-center space-x-3">
 											<input
@@ -313,7 +315,7 @@ const QRGenerator: React.FC = () => {
 											htmlFor="background"
 											className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
 										>
-											Background
+											{t.generator.background}
 										</label>
 										<div className="flex items-center space-x-3">
 											<input
@@ -349,7 +351,7 @@ const QRGenerator: React.FC = () => {
 						<div className="space-y-6">
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
-									Preview
+									{t.generator.preview}
 								</h3>
 								<div className="flex justify-center mb-6">
 									<div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
@@ -361,7 +363,7 @@ const QRGenerator: React.FC = () => {
 										{!qrCodeDataURL && (
 											<div className="w-64 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
 												<span className="text-gray-500 dark:text-gray-400">
-													Enter text to generate QR code
+													{t.generator.emptyPreview}
 												</span>
 											</div>
 										)}
@@ -375,14 +377,14 @@ const QRGenerator: React.FC = () => {
 											className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
 										>
 											<Download className="w-5 h-5 mr-2" />
-											Download PNG
+											{t.generator.downloadPng}
 										</button>
 										<button
 											onClick={() => downloadQR("svg")}
 											className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
 										>
 											<Download className="w-5 h-5 mr-2" />
-											Download SVG
+											{t.generator.downloadSvg}
 										</button>
 									</div>
 								)}

@@ -1,7 +1,19 @@
 import React from "react";
-import { features } from "../utils";
+import { featureCardConfig } from "../utils";
+import { useLocale } from "../context/Locale";
 
 const Features: React.FC = () => {
+	const { t } = useLocale();
+
+	const features = featureCardConfig.map((config) => {
+		const copy = t.features.cards.find((card) => card.id === config.id);
+		return {
+			...config,
+			title: copy?.title ?? "",
+			description: copy?.description ?? "",
+		};
+	});
+
 	return (
 		<section
 			id="features"
@@ -10,10 +22,10 @@ const Features: React.FC = () => {
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-16">
 					<h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
-						Why Choose this tool?
+						{t.features.heading}
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-						Powerful features designed to make QR code generation simple, fast, and customizable
+						{t.features.subheading}
 					</p>
 				</div>
 
@@ -44,23 +56,25 @@ const Features: React.FC = () => {
 
 				{/* Stats Section */}
 				<div className="mt-20 bg-gradient-to-r from-blue-400 to-blue-500 rounded-3xl p-12 text-center">
-					<h3 className="text-3xl md:text-4xl font-bold text-white mb-8">Trusted by Thousands</h3>
+					<h3 className="text-3xl md:text-4xl font-bold text-white mb-8">
+						{t.features.trustedTitle}
+					</h3>
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">10,000+</div>
-							<div className="text-blue-100">QR Codes Generated</div>
+							<div className="text-blue-100">{t.features.statQrsLabel}</div>
 						</div>
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">50+</div>
-							<div className="text-blue-100">Countries</div>
+							<div className="text-blue-100">{t.features.statCountriesLabel}</div>
 						</div>
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">99.9%</div>
-							<div className="text-blue-100">Uptime</div>
+							<div className="text-blue-100">{t.features.statUptimeLabel}</div>
 						</div>
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">100%</div>
-							<div className="text-blue-100">Free Forever</div>
+							<div className="text-blue-100">{t.features.statFreeLabel}</div>
 						</div>
 					</div>
 				</div>
