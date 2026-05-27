@@ -99,7 +99,7 @@
 					"error",
 					{
 						"allowConstantExport": true,
-						"allowExportNames": ["useDarkMode"]
+						"allowExportNames": ["useDarkMode", "useLocale"]
 					}
 				]
 			},
