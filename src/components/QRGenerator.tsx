@@ -54,13 +54,7 @@ const QRGenerator: React.FC = () => {
 					// create a white background circle for the logo
 					ctx.fillStyle = options.backgroundColor;
 					ctx.beginPath();
-					ctx.arc(
-						canvas.width / 2,
-						canvas.height / 2,
-						logoSize / 2 + 8,
-						0,
-						2 * Math.PI
-					);
+					ctx.arc(canvas.width / 2, canvas.height / 2, logoSize / 2 + 8, 0, 2 * Math.PI);
 					ctx.fill();
 
 					// draw the logo
@@ -102,7 +96,8 @@ const QRGenerator: React.FC = () => {
 	// };
 
 	useEffect(() => {
-		generateQRCode(options.logo);
+		void generateQRCode(options.logo);
+		// oxlint-disable-next-line react-hooks/exhaustive-deps -- regenerate when any QR option changes
 	}, [options]);
 
 	const downloadQR = (format: "png" | "svg") => {
@@ -143,8 +138,7 @@ const QRGenerator: React.FC = () => {
 						QR Code Generator
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-						Customize your QR code with different sizes, colors, and download
-						formats
+						Customize your QR code with different sizes, colors, and download formats
 					</p>
 				</div>
 
@@ -168,9 +162,7 @@ const QRGenerator: React.FC = () => {
 										<textarea
 											id="text"
 											value={options.text}
-											onChange={(e) =>
-												setOptions({ ...options, text: e.target.value })
-											}
+											onChange={(e) => setOptions({ ...options, text: e.target.value })}
 											className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-white transition-all duration-200"
 											rows={3}
 											placeholder="Enter text or links to generate QR code"
@@ -265,11 +257,7 @@ const QRGenerator: React.FC = () => {
 									onChange={(e) =>
 										setOptions({
 											...options,
-											size: e.target.value as
-												| "small"
-												| "medium"
-												| "large"
-												| "xlarge",
+											size: e.target.value as "small" | "medium" | "large" | "xlarge",
 										})
 									}
 									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200 hover:cursor-pointer"

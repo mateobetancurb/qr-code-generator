@@ -1,11 +1,4 @@
-import {
-	Globe,
-	Smartphone,
-	Zap,
-	Palette,
-	Download,
-	Shield,
-} from "lucide-react";
+import { Globe, Smartphone, Zap, Palette, Download, Shield } from "lucide-react";
 
 export const generateFilename = (text: string): string => {
 	if (!text.trim()) return "qrcode";
@@ -46,8 +39,7 @@ export const features = [
 		id: 1,
 		icon: Zap,
 		title: "Lightning Fast",
-		description:
-			"Generate QR codes instantly with real-time preview. No waiting, no delays",
+		description: "Generate QR codes instantly with real-time preview. No waiting, no delays",
 		color: "text-yellow-500",
 		bgColor: "bg-yellow-100 dark:bg-yellow-900/20",
 	},
@@ -55,8 +47,7 @@ export const features = [
 		id: 2,
 		icon: Palette,
 		title: "Custom Colors",
-		description:
-			"Personalize your QR codes with custom foreground and background colors",
+		description: "Personalize your QR codes with custom foreground and background colors",
 		color: "text-purple-500",
 		bgColor: "bg-purple-100 dark:bg-purple-900/20",
 	},
@@ -81,8 +72,7 @@ export const features = [
 		id: 5,
 		icon: Smartphone,
 		title: "Mobile Friendly",
-		description:
-			"Fully responsive design works perfectly on desktop, tablet, and mobile devices",
+		description: "Fully responsive design works perfectly on desktop, tablet, and mobile devices",
 		color: "text-red-500",
 		bgColor: "bg-red-100 dark:bg-red-900/20",
 	},
@@ -90,8 +80,7 @@ export const features = [
 		id: 6,
 		icon: Globe,
 		title: "No Registration",
-		description:
-			"Start generating QR codes immediately. No account needed, completely free",
+		description: "Start generating QR codes immediately. No account needed, completely free",
 		color: "text-indigo-500",
 		bgColor: "bg-indigo-100 dark:bg-indigo-900/20",
 	},

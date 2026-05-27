@@ -43,9 +43,8 @@ const Hero: React.FC = () => {
 
 					{/* subtext */}
 					<p className="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed animate-slide-up animation-delay-200 backdrop-blur-sm">
-						Create custom QR codes for your business, events, or personal use.
-						Fast, free, and with full customization options including colors and
-						sizes.
+						Create custom QR codes for your business, events, or personal use. Fast, free, and with
+						full customization options including colors and sizes.
 					</p>
 
 					{/* cta button */}
@@ -63,28 +62,16 @@ const Hero: React.FC = () => {
 					{/* stats */}
 					<div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 animate-slide-up animation-delay-400">
 						<div className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-							<div className="text-3xl font-bold text-gray-800 dark:text-white">
-								10K+
-							</div>
-							<div className="text-gray-600 dark:text-gray-300">
-								QR Codes Generated
-							</div>
+							<div className="text-3xl font-bold text-gray-800 dark:text-white">10K+</div>
+							<div className="text-gray-600 dark:text-gray-300">QR Codes Generated</div>
 						</div>
 						<div className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-							<div className="text-3xl font-bold text-gray-800 dark:text-white">
-								100%
-							</div>
-							<div className="text-gray-600 dark:text-gray-300">
-								Free to Use
-							</div>
+							<div className="text-3xl font-bold text-gray-800 dark:text-white">100%</div>
+							<div className="text-gray-600 dark:text-gray-300">Free to Use</div>
 						</div>
 						<div className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-							<div className="text-3xl font-bold text-gray-800 dark:text-white">
-								0s
-							</div>
-							<div className="text-gray-600 dark:text-gray-300">
-								Generation Time
-							</div>
+							<div className="text-3xl font-bold text-gray-800 dark:text-white">0s</div>
+							<div className="text-gray-600 dark:text-gray-300">Generation Time</div>
 						</div>
 					</div>
 				</div>

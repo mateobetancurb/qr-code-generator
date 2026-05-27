@@ -5,9 +5,7 @@ interface DarkModeContextType {
 	toggleDarkMode: () => void;
 }
 
-const DarkModeContext = createContext<DarkModeContextType | undefined>(
-	undefined
-);
+const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
 
 export const useDarkMode = () => {
 	const context = useContext(DarkModeContext);
@@ -17,9 +15,7 @@ export const useDarkMode = () => {
 	return context;
 };
 
-export const DarkModeProvider: React.FC<{ children: React.ReactNode }> = ({
-	children,
-}) => {
+export const DarkModeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 	const [isDarkMode, setIsDarkMode] = useState(() => {
 		// Initialize based on localStorage or system preference
 		if (typeof window !== "undefined") {

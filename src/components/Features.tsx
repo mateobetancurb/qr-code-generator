@@ -13,8 +13,7 @@ const Features: React.FC = () => {
 						Why Choose this tool?
 					</h2>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-						Powerful features designed to make QR code generation simple, fast,
-						and customizable
+						Powerful features designed to make QR code generation simple, fast, and customizable
 					</p>
 				</div>
 
@@ -45,9 +44,7 @@ const Features: React.FC = () => {
 
 				{/* Stats Section */}
 				<div className="mt-20 bg-gradient-to-r from-blue-400 to-blue-500 rounded-3xl p-12 text-center">
-					<h3 className="text-3xl md:text-4xl font-bold text-white mb-8">
-						Trusted by Thousands
-					</h3>
+					<h3 className="text-3xl md:text-4xl font-bold text-white mb-8">Trusted by Thousands</h3>
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 						<div className="text-center">
 							<div className="text-4xl font-bold text-white mb-2">10,000+</div>
