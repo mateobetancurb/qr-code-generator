@@ -2,67 +2,96 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/qr-favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-		<!-- SEO Meta Tags -->
-		<title>QR Code Generator - Free Online QR Code Creator</title>
+		<title>Free QR Code Generator | Customize &amp; Download</title>
 		<meta
 			name="description"
-			content="Generate QR codes instantly with our free online QR code generator. Create custom QR codes for URLs, text, WiFi, contact info, and more. Fast, secure, and easy to use"
-		/>
-		<meta
-			name="keywords"
-			content="QR code generator, QR code creator, free QR codes, online QR generator, custom QR codes, barcode generator"
+			content="Create custom QR codes for links and text with our free QR code generator. Choose colors, sizes, and patterns, then download PNG or SVG files instantly."
 		/>
 		<meta name="author" content="Mateo Betancur" />
-		<meta name="robots" content="index, follow" />
-		<meta name="language" content="en" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="theme-color" content="#2563eb" />
+		<link rel="icon" type="image/svg+xml" href="/qr-favicon.svg" />
+		<link rel="canonical" href="https://qr-code-generator-2pn.pages.dev/" />
+		<link rel="alternate" hreflang="en" href="https://qr-code-generator-2pn.pages.dev/" />
+		<link rel="alternate" hreflang="es" href="https://qr-code-generator-2pn.pages.dev/es/" />
+		<link rel="alternate" hreflang="x-default" href="https://qr-code-generator-2pn.pages.dev/" />
 
-		<!-- Open Graph Meta Tags -->
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="QR Code Generator - Free Online QR Code Creator" />
+		<meta property="og:site_name" content="QRGenerator" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale:alternate" content="es_ES" />
+		<meta property="og:title" content="Free QR Code Generator | Customize &amp; Download" />
 		<meta
 			property="og:description"
-			content="Generate QR codes instantly with our free online QR code generator. Create custom QR codes for URLs, text, WiFi, contact info, and more."
+			content="Create QR codes for links and text, customize their design, and download PNG or SVG files for free."
 		/>
 		<meta property="og:url" content="https://qr-code-generator-2pn.pages.dev/" />
-		<meta property="og:site_name" content="QR Generator" />
-		<meta property="og:image" content="https://qr-code-generator-2pn.pages.dev/qr-favicon.svg" />
+		<meta
+			property="og:image"
+			content="https://qr-code-generator-2pn.pages.dev/qr-code-social-card.png"
+		/>
+		<meta property="og:image:type" content="image/png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:locale" content="en_US" />
+		<meta property="og:image:alt" content="QRGenerator free custom QR code generator" />
 
-		<!-- Twitter Card Meta Tags -->
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="QR Code Generator - Free Online QR Code Creator" />
+		<meta name="twitter:title" content="Free QR Code Generator | Customize &amp; Download" />
 		<meta
 			name="twitter:description"
-			content="Generate QR codes instantly with our free online QR code generator. Create custom QR codes for URLs, text, WiFi, contact info, and more"
+			content="Create QR codes for links and text, customize their design, and download PNG or SVG files for free."
 		/>
+		<meta
+			name="twitter:image"
+			content="https://qr-code-generator-2pn.pages.dev/qr-code-social-card.png"
+		/>
+		<meta name="twitter:image:alt" content="QRGenerator free custom QR code generator" />
 
-		<!-- Additional SEO Meta Tags -->
-		<meta name="theme-color" content="#000000" />
-		<link rel="canonical" href="https://qr-code-generator-2pn.pages.dev/" />
-		<meta name="google-site-verification" content="your-google-verification-code" />
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@graph": [
+					{
+						"@type": "WebSite",
+						"@id": "https://qr-code-generator-2pn.pages.dev/#website",
+						"url": "https://qr-code-generator-2pn.pages.dev/",
+						"name": "QRGenerator",
+						"inLanguage": ["en", "es"]
+					},
+					{
+						"@type": "WebApplication",
+						"@id": "https://qr-code-generator-2pn.pages.dev/#application-en",
+						"url": "https://qr-code-generator-2pn.pages.dev/",
+						"name": "Free QR Code Generator",
+						"description": "Create custom QR codes for links and text, choose colors, sizes, and patterns, and download PNG or SVG files.",
+						"applicationCategory": "UtilitiesApplication",
+						"operatingSystem": "Any",
+						"browserRequirements": "Requires JavaScript",
+						"inLanguage": "en",
+						"image": "https://qr-code-generator-2pn.pages.dev/qr-code-social-card.png",
+						"isPartOf": { "@id": "https://qr-code-generator-2pn.pages.dev/#website" },
+						"offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+						"featureList": [
+							"Local browser-based QR code generation",
+							"Custom colors and sizes",
+							"Square and dot patterns",
+							"PNG and SVG downloads"
+						]
+					}
+				]
+			}
+		</script>
 	</head>
 	<body>
 		<script>
-			// prevent FOUC by applying dark mode class before react loads
 			(function () {
 				const savedMode = localStorage.getItem("darkMode");
-				if (savedMode !== null) {
-					const isDark = JSON.parse(savedMode);
-					if (isDark) {
-						document.documentElement.classList.add("dark");
-					}
-				} else {
-					// check system preference if no saved mode
-					const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-					if (prefersDark) {
-						document.documentElement.classList.add("dark");
-					}
-				}
+				const isDark =
+					savedMode === null
+						? window.matchMedia("(prefers-color-scheme: dark)").matches
+						: savedMode === "true";
+				if (isDark) document.documentElement.classList.add("dark");
 			})();
 		</script>
 		<div id="root"></div>
