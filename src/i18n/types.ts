@@ -38,6 +38,9 @@ export interface Translation {
 		sizeMedium: string;
 		sizeLarge: string;
 		sizeXlarge: string;
+		pattern: string;
+		patternSquare: string;
+		patternDots: string;
 		colors: string;
 		foreground: string;
 		background: string;
