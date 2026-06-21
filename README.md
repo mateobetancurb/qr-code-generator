@@ -178,14 +178,18 @@ The built files will be in the `dist` directory.
 
 ### Project Scripts
 
-| Command             | Description                         |
-| ------------------- | ----------------------------------- |
-| `pnpm dev`          | Start development server            |
-| `pnpm build`        | Type-check and build for production |
-| `pnpm preview`      | Preview production build            |
-| `pnpm lint`         | Run oxlint                          |
-| `pnpm format`       | Run oxfmt formatter                 |
-| `pnpm format:check` | Check formatting without writing    |
+| Command              | Description                         |
+| -------------------- | ----------------------------------- |
+| `pnpm dev`           | Start development server            |
+| `pnpm build`         | Type-check and build for production |
+| `pnpm preview`       | Preview production build            |
+| `pnpm lint`          | Run oxlint                          |
+| `pnpm format`        | Run oxfmt formatter                 |
+| `pnpm format:check`  | Check formatting without writing    |
+| `pnpm test`          | Run unit tests in watch mode        |
+| `pnpm test:coverage` | Run unit tests with coverage        |
+| `pnpm test:e2e`      | Run Chromium end-to-end tests       |
+| `pnpm check`         | Run every local verification step   |
 
 ### Code Quality
 
