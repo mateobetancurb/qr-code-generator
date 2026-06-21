@@ -25,7 +25,7 @@ export const en: Translation = {
 	},
 	generator: {
 		title: "QR Code Generator",
-		subtitle: "Customize your QR code with different sizes, colors, and download formats",
+		subtitle: "Customize your QR code with different sizes, patterns, colors, and download formats",
 		content: "Content",
 		textOrUrl: "Text or URL",
 		placeholder: "Enter text or links to generate QR code",
@@ -34,6 +34,9 @@ export const en: Translation = {
 		sizeMedium: "Medium (300x300)",
 		sizeLarge: "Large (400x400)",
 		sizeXlarge: "Extra Large (500x500)",
+		pattern: "Pattern",
+		patternSquare: "Square",
+		patternDots: "Dots",
 		colors: "Colors",
 		foreground: "Foreground",
 		background: "Background",

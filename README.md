@@ -11,6 +11,7 @@ A modern, responsive QR code generator built with React, TypeScript, and Vite. G
 
 - **Lightning Fast**: Generate QR codes instantly with real-time preview
 - **Custom Colors**: Personalize QR codes with custom foreground and background colors
+- **Custom Patterns**: Switch between classic square modules and scan-safe dot modules
 - **Brand Logo**: Upload a custom image to embed as a logo in the center of the QR code
 - **Multiple Formats**: Download in PNG or SVG format for any use case
 - **Privacy First**: All QR codes generated locally in your browser — your data never leaves your device
@@ -151,6 +152,7 @@ The built files will be in the `dist` directory.
 1. **Enter Content**: Type any text or paste a URL into the text area
 2. **Customize**:
    - Choose from 4 different sizes (200×200 to 500×500)
+   - Switch between square and dot module patterns
    - Pick custom foreground and background colors
    - Upload a custom image to embed as a center logo
    - Preview changes in real-time
