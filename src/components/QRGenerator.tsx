@@ -4,12 +4,14 @@ import {
 	Palette,
 	Maximize as Resize,
 	Link,
+	Shapes,
 	// Upload,
 	// X,
 } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import type { QROptions } from "../interfaces";
 import { generateFilename, sizeMap } from "../utils";
+import { renderQRToCanvas, renderQRToSVG } from "../utils/qrRenderer";
 import { useLocale } from "../context/Locale";
 
 const QRGenerator: React.FC = () => {
@@ -17,6 +19,7 @@ const QRGenerator: React.FC = () => {
 	const [options, setOptions] = useState<QROptions>({
 		text: "",
 		size: "medium",
+		moduleStyle: "square",
 		foregroundColor: "#000000",
 		backgroundColor: "#ffffff",
 		logo: undefined,
@@ -26,51 +29,24 @@ const QRGenerator: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	// const fileInputRef = useRef<HTMLInputElement>(null);
 
-	const generateQRCode = async (logoDataURL?: string) => {
-		if (!options.text.trim()) return;
+	const generateQRCode = () => {
+		if (!options.text.trim()) {
+			setQrCodeDataURL("");
+			return;
+		}
 
 		try {
 			const canvas = canvasRef.current;
 			if (!canvas) return;
 
-			const ctx = canvas.getContext("2d");
-			if (!ctx) return;
-
-			await QRCode.toCanvas(canvas, options.text, {
+			const qrCode = QRCode.create(options.text);
+			renderQRToCanvas(canvas, qrCode, {
 				width: sizeMap[options.size],
-				margin: 2,
-				color: {
-					dark: options.foregroundColor,
-					light: options.backgroundColor,
-				},
+				moduleStyle: options.moduleStyle,
+				foregroundColor: options.foregroundColor,
+				backgroundColor: options.backgroundColor,
 			});
-
-			// add logo if provided
-			if (logoDataURL) {
-				const logo = new Image();
-				logo.onload = () => {
-					const logoSize = sizeMap[options.size] * 0.2; // logo is 20% of qr code size
-					const x = (canvas.width - logoSize) / 2;
-					const y = (canvas.height - logoSize) / 2;
-
-					// create a white background circle for the logo
-					ctx.fillStyle = options.backgroundColor;
-					ctx.beginPath();
-					ctx.arc(canvas.width / 2, canvas.height / 2, logoSize / 2 + 8, 0, 2 * Math.PI);
-					ctx.fill();
-
-					// draw the logo
-					ctx.drawImage(logo, x, y, logoSize, logoSize);
-
-					// update the data url with the logo
-					const dataURL = canvas.toDataURL("image/png");
-					setQrCodeDataURL(dataURL);
-				};
-				logo.src = logoDataURL;
-			} else {
-				const dataURL = canvas.toDataURL("image/png");
-				setQrCodeDataURL(dataURL);
-			}
+			setQrCodeDataURL(canvas.toDataURL("image/png"));
 		} catch (error) {
 			console.error("Error generating QR code:", error);
 		}
@@ -98,7 +74,7 @@ const QRGenerator: React.FC = () => {
 	// };
 
 	useEffect(() => {
-		void generateQRCode(options.logo);
+		generateQRCode();
 		// oxlint-disable-next-line react-hooks/exhaustive-deps -- regenerate when any QR option changes
 	}, [options]);
 
@@ -110,22 +86,18 @@ const QRGenerator: React.FC = () => {
 			link.href = qrCodeDataURL;
 			link.click();
 		} else if (format === "svg") {
-			QRCode.toString(options.text, {
-				type: "svg",
+			const svg = renderQRToSVG(QRCode.create(options.text), {
 				width: sizeMap[options.size],
-				margin: 2,
-				color: {
-					dark: options.foregroundColor,
-					light: options.backgroundColor,
-				},
-			}).then((svg) => {
-				const blob = new Blob([svg], { type: "image/svg+xml" });
-				const link = document.createElement("a");
-				link.download = `${filename}.svg`;
-				link.href = URL.createObjectURL(blob);
-				link.click();
-				URL.revokeObjectURL(link.href);
+				moduleStyle: options.moduleStyle,
+				foregroundColor: options.foregroundColor,
+				backgroundColor: options.backgroundColor,
 			});
+			const blob = new Blob([svg], { type: "image/svg+xml" });
+			const link = document.createElement("a");
+			link.download = `${filename}.svg`;
+			link.href = URL.createObjectURL(blob);
+			link.click();
+			URL.revokeObjectURL(link.href);
 		}
 	};
 
@@ -269,6 +241,39 @@ const QRGenerator: React.FC = () => {
 									<option value="large">{t.generator.sizeLarge}</option>
 									<option value="xlarge">{t.generator.sizeXlarge}</option>
 								</select>
+							</div>
+
+							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
+									<Shapes className="w-5 h-5 mr-2 text-blue-500" />
+									{t.generator.pattern}
+								</h3>
+								<div className="grid grid-cols-2 gap-3">
+									{(["square", "dots"] as const).map((moduleStyle) => {
+										const isSelected = options.moduleStyle === moduleStyle;
+										return (
+											<button
+												key={moduleStyle}
+												type="button"
+												aria-pressed={isSelected}
+												onClick={() => setOptions({ ...options, moduleStyle })}
+												className={`flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 font-medium transition-all duration-200 hover:cursor-pointer ${
+													isSelected
+														? "border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+														: "border-gray-200 text-gray-700 hover:border-blue-300 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-700"
+												}`}
+											>
+												<span
+													aria-hidden="true"
+													className={`w-3 h-3 bg-current ${moduleStyle === "dots" ? "rounded-full" : "rounded-sm"}`}
+												/>
+												{moduleStyle === "square"
+													? t.generator.patternSquare
+													: t.generator.patternDots}
+											</button>
+										);
+									})}
+								</div>
 							</div>
 
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
