@@ -2,7 +2,7 @@ import type { QRCode as QRCodeData } from "qrcode";
 import type { ModuleStyle } from "../interfaces";
 
 const QUIET_ZONE_MODULES = 4;
-const DOT_DIAMETER = 0.8;
+const DOT_DIAMETER = 1;
 
 export interface QRRenderOptions {
 	width: number;
