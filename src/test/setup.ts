@@ -26,6 +26,11 @@ const createCanvasContext = (): CanvasRenderingContext2D =>
 		fill: vi.fn(),
 		fillRect: vi.fn(),
 		fillStyle: "#000000",
+		roundRect: vi.fn(),
+		drawImage: vi.fn(),
+		save: vi.fn(),
+		clip: vi.fn(),
+		restore: vi.fn(),
 	}) as unknown as CanvasRenderingContext2D;
 
 beforeEach(() => {

@@ -3,12 +3,25 @@ import type { ModuleStyle } from "../interfaces";
 
 const QUIET_ZONE_MODULES = 4;
 const DOT_DIAMETER = 1;
+const DEFAULT_IMAGE_SIZE = 0.2;
+const IMAGE_PAD_GAP = 0.04;
+
+export interface QRImage {
+	dataUrl: string;
+	source: CanvasImageSource;
+	width: number;
+	height: number;
+}
 
 export interface QRRenderOptions {
 	width: number;
 	moduleStyle: ModuleStyle;
 	foregroundColor: string;
 	backgroundColor: string;
+	image?: QRImage;
+	imageSize?: number;
+	imageRadius?: number;
+	imageBackgroundColor?: string;
 }
 
 const normalizeHexColor = (color: string, fallback: string): string =>
@@ -21,6 +34,40 @@ const getColors = (options: QRRenderOptions) => ({
 	foreground: normalizeHexColor(options.foregroundColor, "#000000"),
 	background: normalizeHexColor(options.backgroundColor, "#ffffff"),
 });
+
+const clamp = (value: number, minimum: number, maximum: number): number =>
+	Math.min(Math.max(value, minimum), maximum);
+
+const getImageLayout = (
+	width: number,
+	image: QRImage,
+	imageSize = DEFAULT_IMAGE_SIZE,
+	imageRadius = 0,
+) => {
+	const round = (value: number): number => Number(value.toFixed(4));
+	const sizeRatio = clamp(imageSize, 0.1, 0.3);
+	const radiusRatio = clamp(imageRadius, 0, 0.5);
+	const boxSize = width * sizeRatio;
+	const padSize = width * (sizeRatio + IMAGE_PAD_GAP);
+	const scale = Math.min(boxSize / image.width, boxSize / image.height);
+	const imageWidth = image.width * scale;
+	const imageHeight = image.height * scale;
+
+	return {
+		imageX: round((width - imageWidth) / 2),
+		imageY: round((width - imageHeight) / 2),
+		imageWidth: round(imageWidth),
+		imageHeight: round(imageHeight),
+		imageRadius: round(Math.min(imageWidth, imageHeight) * radiusRatio),
+		padX: round((width - padSize) / 2),
+		padY: round((width - padSize) / 2),
+		padSize: round(padSize),
+		padRadius: round(width * 0.02),
+	};
+};
+
+const escapeAttribute = (value: string): string =>
+	value.replaceAll("&", "&amp;").replaceAll('"', "&quot;");
 
 export const renderQRToCanvas = (
 	canvas: HTMLCanvasElement,
@@ -68,6 +115,41 @@ export const renderQRToCanvas = (
 			}
 		}
 	}
+
+	if (options.image) {
+		const layout = getImageLayout(
+			options.width,
+			options.image,
+			options.imageSize,
+			options.imageRadius,
+		);
+		if (options.imageBackgroundColor !== undefined) {
+			context.fillStyle = normalizeHexColor(options.imageBackgroundColor, background);
+			context.beginPath();
+			context.roundRect(layout.padX, layout.padY, layout.padSize, layout.padSize, layout.padRadius);
+			context.fill();
+		}
+		if (layout.imageRadius) {
+			context.save();
+			context.beginPath();
+			context.roundRect(
+				layout.imageX,
+				layout.imageY,
+				layout.imageWidth,
+				layout.imageHeight,
+				layout.imageRadius,
+			);
+			context.clip();
+		}
+		context.drawImage(
+			options.image.source,
+			layout.imageX,
+			layout.imageY,
+			layout.imageWidth,
+			layout.imageHeight,
+		);
+		if (layout.imageRadius) context.restore();
+	}
 };
 
 export const renderQRToSVG = (qrCode: QRCodeData, options: QRRenderOptions): string => {
@@ -92,12 +174,36 @@ export const renderQRToSVG = (qrCode: QRCodeData, options: QRRenderOptions): str
 			}
 		}
 	}
+	const imageMarkup = options.image
+		? (() => {
+				const layout = getImageLayout(
+					totalModules,
+					options.image,
+					options.imageSize,
+					options.imageRadius,
+				);
+				const clipPath = layout.imageRadius
+					? `<defs><clipPath id="qr-image-clip"><rect x="${layout.imageX}" y="${layout.imageY}" width="${layout.imageWidth}" height="${layout.imageHeight}" rx="${layout.imageRadius}"/></clipPath></defs>`
+					: "";
+				const clipAttribute = layout.imageRadius ? ' clip-path="url(#qr-image-clip)"' : "";
+				const imageBackground =
+					options.imageBackgroundColor !== undefined
+						? `<rect x="${layout.padX}" y="${layout.padY}" width="${layout.padSize}" height="${layout.padSize}" rx="${layout.padRadius}" fill="${normalizeHexColor(options.imageBackgroundColor, background)}"/>`
+						: "";
+				return [
+					imageBackground,
+					clipPath,
+					`<image href="${escapeAttribute(options.image.dataUrl)}" x="${layout.imageX}" y="${layout.imageY}" width="${layout.imageWidth}" height="${layout.imageHeight}" preserveAspectRatio="xMidYMid meet"${clipAttribute}/>`,
+				].join("");
+			})()
+		: "";
 
 	return [
 		`<svg xmlns="http://www.w3.org/2000/svg" width="${options.width}" height="${options.width}" viewBox="0 0 ${totalModules} ${totalModules}" role="img">`,
 		`<rect width="${totalModules}" height="${totalModules}" fill="${background}"/>`,
 		`<g fill="${foreground}" shape-rendering="crispEdges">${squares.join("")}</g>`,
 		dots.length ? `<g fill="${foreground}">${dots.join("")}</g>` : "",
+		imageMarkup,
 		"</svg>",
 	].join("");
 };
