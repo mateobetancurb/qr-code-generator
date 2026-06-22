@@ -134,4 +134,24 @@ test.describe("localized SEO", () => {
 		expect(socialCard.ok()).toBe(true);
 		expect(socialCard.headers()["content-type"]).toBe("image/png");
 	});
+
+	test("renders localized content without client JavaScript", async ({ browser }) => {
+		const context = await browser.newContext({ javaScriptEnabled: false });
+		const page = await context.newPage();
+		await page.goto("/es/");
+		await expect(
+			page.getByRole("heading", { level: 1, name: /crea tu código qr al instante/i }),
+		).toBeVisible();
+		await expect(
+			page.getByRole("heading", { name: "Generador de códigos QR", exact: true }),
+		).toBeVisible();
+		await expect(
+			page.getByRole("heading", { name: /preguntas sobre el generador/i }),
+		).toBeVisible();
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+			"href",
+			"https://qr-code-generator-2pn.pages.dev/es/",
+		);
+		await context.close();
+	});
 });

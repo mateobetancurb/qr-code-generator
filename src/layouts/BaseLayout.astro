@@ -1,0 +1,93 @@
+---
+import "../index.css";
+import type { Locale, Translation } from "../i18n/types";
+
+interface Props {
+	locale: Locale;
+	t: Translation;
+}
+
+const { locale, t } = Astro.props;
+const site = "https://qr-code-generator-2pn.pages.dev";
+const canonical = locale === "es" ? `${site}/es/` : `${site}/`;
+const socialDescription =
+	locale === "es"
+		? "Crea códigos QR para enlaces y texto, personaliza su diseño y descarga archivos PNG o SVG gratis."
+		: "Create QR codes for links and text, customize their design, and download PNG or SVG files for free.";
+const structuredData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "WebSite",
+			"@id": `${site}/#website`,
+			url: `${site}/`,
+			name: "QRGenerator",
+			inLanguage: ["en", "es"],
+		},
+		{
+			"@type": "WebApplication",
+			"@id": `${site}/#application-${locale}`,
+			url: canonical,
+			name: locale === "es" ? "Generador de códigos QR gratis" : "Free QR Code Generator",
+			description: t.meta.description,
+			applicationCategory: "UtilitiesApplication",
+			operatingSystem: "Any",
+			browserRequirements: locale === "es" ? "Requiere JavaScript" : "Requires JavaScript",
+			inLanguage: locale,
+			image: `${site}/qr-code-social-card.png`,
+			isPartOf: { "@id": `${site}/#website` },
+			offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+			featureList:
+				locale === "es"
+					? ["Generación local de códigos QR en el navegador", "Colores y tamaños personalizados", "Patrones de cuadrados y puntos", "Descargas en PNG y SVG"]
+					: ["Local browser-based QR code generation", "Custom colors and sizes", "Square and dot patterns", "PNG and SVG downloads"],
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{t.meta.title}</title>
+		<meta name="description" content={t.meta.description} />
+		<meta name="author" content="Mateo Betancur" />
+		<meta name="robots" content="index, follow, max-image-preview:large" />
+		<meta name="theme-color" content="#2563eb" />
+		<link rel="icon" type="image/svg+xml" href="/qr-favicon.svg" />
+		<link rel="canonical" href={canonical} />
+		<link rel="alternate" hreflang="en" href={`${site}/`} />
+		<link rel="alternate" hreflang="es" href={`${site}/es/`} />
+		<link rel="alternate" hreflang="x-default" href={`${site}/`} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="QRGenerator" />
+		<meta property="og:locale" content={locale === "es" ? "es_ES" : "en_US"} />
+		<meta property="og:locale:alternate" content={locale === "es" ? "en_US" : "es_ES"} />
+		<meta property="og:title" content={t.meta.title} />
+		<meta property="og:description" content={socialDescription} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={`${site}/qr-code-social-card.png`} />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={locale === "es" ? "QRGenerator, generador gratuito de códigos QR personalizados" : "QRGenerator free custom QR code generator"} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={t.meta.title} />
+		<meta name="twitter:description" content={socialDescription} />
+		<meta name="twitter:image" content={`${site}/qr-code-social-card.png`} />
+		<meta name="twitter:image:alt" content={locale === "es" ? "QRGenerator, generador gratuito de códigos QR personalizados" : "QRGenerator free custom QR code generator"} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+		<script is:inline>
+			(function () {
+				const savedMode = localStorage.getItem("darkMode");
+				const isDark = savedMode === null ? window.matchMedia("(prefers-color-scheme: dark)").matches : savedMode === "true";
+				if (isDark) document.documentElement.classList.add("dark");
+			})();
+		</script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

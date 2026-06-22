@@ -1,6 +1,3 @@
-import { Globe, Smartphone, Zap, Palette, Download, Shield } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
 export const generateFilename = (text: string): string => {
 	if (!text.trim()) return "qrcode";
 	try {
@@ -37,7 +34,7 @@ export const sizeMap = {
 
 export interface FeatureCardConfig {
 	id: number;
-	icon: LucideIcon;
+	icon: "zap" | "palette" | "download" | "shield" | "smartphone" | "globe";
 	color: string;
 	bgColor: string;
 }
@@ -45,37 +42,37 @@ export interface FeatureCardConfig {
 export const featureCardConfig: FeatureCardConfig[] = [
 	{
 		id: 1,
-		icon: Zap,
+		icon: "zap",
 		color: "text-yellow-500",
 		bgColor: "bg-yellow-100 dark:bg-yellow-900/20",
 	},
 	{
 		id: 2,
-		icon: Palette,
+		icon: "palette",
 		color: "text-purple-500",
 		bgColor: "bg-purple-100 dark:bg-purple-900/20",
 	},
 	{
 		id: 3,
-		icon: Download,
+		icon: "download",
 		color: "text-blue-500",
 		bgColor: "bg-blue-100 dark:bg-blue-900/20",
 	},
 	{
 		id: 4,
-		icon: Shield,
+		icon: "shield",
 		color: "text-blue-500",
 		bgColor: "bg-blue-100 dark:bg-blue-900/20",
 	},
 	{
 		id: 5,
-		icon: Smartphone,
+		icon: "smartphone",
 		color: "text-red-500",
 		bgColor: "bg-red-100 dark:bg-red-900/20",
 	},
 	{
 		id: 6,
-		icon: Globe,
+		icon: "globe",
 		color: "text-indigo-500",
 		bgColor: "bg-indigo-100 dark:bg-indigo-900/20",
 	},

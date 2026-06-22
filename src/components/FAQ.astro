@@ -1,0 +1,17 @@
+---
+import type { Translation } from "../i18n/types";
+import Icon from "./Icon.astro";
+interface Props { t: Translation }
+const { t } = Astro.props;
+---
+
+<section id="faq" class="py-20 bg-white dark:bg-gray-900">
+	<div class="container mx-auto px-4 max-w-4xl">
+		<div class="text-center mb-12"><h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">{t.faq.heading}</h2><p class="text-xl text-gray-600 dark:text-gray-300">{t.faq.subheading}</p></div>
+		<div class="space-y-4">
+			{t.faq.items.map((item) => (
+				<details class="group rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6"><summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-lg text-lg font-semibold text-gray-800 dark:text-white"><span>{item.question}</span><Icon name="chevron-down" class="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" /></summary><p class="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">{item.answer}</p></details>
+			))}
+		</div>
+	</div>
+</section>

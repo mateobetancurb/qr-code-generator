@@ -1,0 +1,86 @@
+---
+import type { Translation } from "../i18n/types";
+import Icon from "./Icon.astro";
+
+interface Props { t: Translation }
+const { t } = Astro.props;
+---
+
+<section id="generator" data-qr-generator class="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+	<div class="container mx-auto px-4">
+		<div class="text-center mb-12">
+			<h2 class="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">{t.generator.title}</h2>
+			<p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">{t.generator.subtitle}</p>
+		</div>
+		<div class="max-w-6xl mx-auto">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+				<div class="space-y-6">
+					<div class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+						<h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center"><Icon name="link" class="w-5 h-5 mr-2 text-blue-600" />{t.generator.content}</h3>
+						<label for="text" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t.generator.textOrUrl}</label>
+						<textarea id="text" data-qr-text class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white placeholder-gray-500 dark:placeholder-white transition-all duration-200" rows="3" placeholder={t.generator.placeholder}></textarea>
+					</div>
+
+					<div class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+						<label for="qr-size" class="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center"><Icon name="maximize" class="w-5 h-5 mr-2 text-blue-600" />{t.generator.size}</label>
+						<select id="qr-size" data-qr-size class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white transition-all duration-200 hover:cursor-pointer">
+							<option value="small">{t.generator.sizeSmall}</option>
+							<option value="medium" selected>{t.generator.sizeMedium}</option>
+							<option value="large">{t.generator.sizeLarge}</option>
+							<option value="xlarge">{t.generator.sizeXlarge}</option>
+						</select>
+					</div>
+
+					<fieldset class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+						<legend class="w-full text-xl font-semibold text-gray-800 dark:text-white mb-4"><span class="flex items-center"><Icon name="shapes" class="w-5 h-5 mr-2 text-blue-600" />{t.generator.pattern}</span></legend>
+						<div class="grid grid-cols-2 gap-3">
+							<button data-module-style="square" type="button" aria-pressed="true" class="qr-pattern flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 font-medium transition-all duration-200 hover:cursor-pointer border-blue-600 bg-blue-50 text-blue-800 dark:border-blue-400 dark:bg-blue-900/40 dark:text-blue-200"><span aria-hidden="true" class="w-3 h-3 bg-current rounded-sm"></span>{t.generator.patternSquare}</button>
+							<button data-module-style="dots" type="button" aria-pressed="false" class="qr-pattern flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 font-medium transition-all duration-200 hover:cursor-pointer border-gray-200 text-gray-700 hover:border-blue-300 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-700"><span aria-hidden="true" class="w-3 h-3 bg-current rounded-full"></span>{t.generator.patternDots}</button>
+						</div>
+					</fieldset>
+
+					<fieldset class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+						<legend class="w-full text-xl font-semibold text-gray-800 dark:text-white mb-4"><span class="flex items-center"><Icon name="palette" class="w-5 h-5 mr-2 text-blue-600" />{t.generator.colors}</span></legend>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<div>
+								<label for="foreground" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t.generator.foreground}</label>
+								<div class="flex items-center space-x-3">
+									<input id="foreground" data-color-picker="foreground" aria-label={t.generator.foreground} type="color" value="#000000" class="w-12 h-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 cursor-pointer" />
+									<input data-color-text="foreground" type="text" aria-label={t.generator.foregroundHex} spellcheck="false" value="#000000" class="min-w-0 flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white" />
+								</div>
+							</div>
+							<div>
+								<label for="background" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t.generator.background}</label>
+								<div class="flex items-center space-x-3">
+									<input id="background" data-color-picker="background" aria-label={t.generator.background} type="color" value="#ffffff" class="w-12 h-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 cursor-pointer" />
+									<input data-color-text="background" type="text" aria-label={t.generator.backgroundHex} spellcheck="false" value="#ffffff" class="min-w-0 flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white" />
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+
+				<div class="space-y-6">
+					<div class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+						<h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4 text-center">{t.generator.preview}</h3>
+						<div class="flex justify-center mb-6"><div class="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+							<canvas data-qr-canvas role="img" aria-label={t.generator.previewLabel} class="max-w-full h-auto rounded-lg shadow-md" hidden></canvas>
+							<div data-empty-preview class="w-64 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center"><span class="text-gray-700 dark:text-gray-200">{t.generator.emptyPreview}</span></div>
+						</div></div>
+						<p data-qr-status class="sr-only" role="status" aria-live="polite" data-empty={t.generator.emptyPreview} data-ready={t.generator.previewReady}>{t.generator.emptyPreview}</p>
+						<p data-qr-error role="alert" class="mb-4 rounded-lg bg-red-50 p-3 text-red-800 dark:bg-red-950 dark:text-red-200" hidden>{t.generator.generationError}</p>
+						<div data-downloads class="flex flex-col sm:flex-row gap-4 justify-center" hidden>
+							<button data-download="png" type="button" class="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"><Icon name="download" class="w-5 h-5 mr-2" />{t.generator.downloadPng}</button>
+							<button data-download="svg" type="button" class="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"><Icon name="download" class="w-5 h-5 mr-2" />{t.generator.downloadSvg}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { initQRGenerator } from "../scripts/qrGenerator";
+	initQRGenerator();
+</script>
