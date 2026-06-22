@@ -96,5 +96,6 @@ export const es: Translation = {
 	footer: {
 		copyright: "© {year} QRGenerator",
 		localProcessing: "Códigos QR generados localmente en tu navegador",
+		creatorCredit: "Creado por {name}",
 	},
 };

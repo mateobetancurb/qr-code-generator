@@ -80,5 +80,6 @@ export interface Translation {
 	footer: {
 		copyright: string;
 		localProcessing: string;
+		creatorCredit: string;
 	};
 }

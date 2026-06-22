@@ -4,6 +4,8 @@ import Icon from "./Icon.astro";
 interface Props { t: Translation }
 const { t } = Astro.props;
 const year = new Date().getFullYear();
+const creatorName = "Mateo";
+const creatorCreditParts = t.footer.creatorCredit.split("{name}");
 ---
 
 <footer class="site-footer">
@@ -11,5 +13,12 @@ const year = new Date().getFullYear();
 		<div class="footer-brand"><Icon name="qr" /><span>QRGenerator</span></div>
 		<p>{t.footer.localProcessing}</p>
 		<p>{t.footer.copyright.replace("{year}", String(year))}</p>
+		<p>
+			{creatorCreditParts[0]}
+			<a href="https://mateobetancur.com" target="_blank" rel="noreferrer">
+				{creatorName}
+			</a>
+			{creatorCreditParts[1] ?? ""}
+		</p>
 	</div>
 </footer>
