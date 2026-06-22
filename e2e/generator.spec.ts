@@ -200,4 +200,26 @@ test.describe("localized SEO", () => {
 		await expect(page).toHaveURL(/\/$/);
 		await expect(page.locator("[data-qr-text]")).toHaveValue("QR persistido ñ");
 	});
+
+	test("preserves explicit dark and light themes across language changes", async ({ page }) => {
+		await page.goto("/");
+		await page.getByRole("button", { name: "Switch to dark mode" }).click();
+		await expect(page.locator("html")).toHaveClass(/dark/);
+
+		await page
+			.getByRole("link", { name: "ES", exact: true })
+			.evaluate((link: HTMLAnchorElement) => link.click());
+		await expect(page).toHaveURL(/\/es\/$/);
+		await expect(page.locator("html")).toHaveClass(/dark/);
+		await expect(page.getByRole("button", { name: "Cambiar al modo claro" })).toBeVisible();
+
+		await page.getByRole("button", { name: "Cambiar al modo claro" }).click();
+		await expect(page.locator("html")).not.toHaveClass(/dark/);
+		await page
+			.getByRole("link", { name: "EN", exact: true })
+			.evaluate((link: HTMLAnchorElement) => link.click());
+		await expect(page).toHaveURL(/\/$/);
+		await expect(page.locator("html")).not.toHaveClass(/dark/);
+		await expect(page.getByRole("button", { name: "Switch to dark mode" })).toBeVisible();
+	});
 });

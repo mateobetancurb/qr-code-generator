@@ -83,8 +83,11 @@ const structuredData = {
 		<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 		<script is:inline>
 			(function () {
-				const savedMode = localStorage.getItem("darkMode");
-				const isDark = savedMode === null ? window.matchMedia("(prefers-color-scheme: dark)").matches : savedMode === "true";
+				let savedMode = null;
+				try {
+					savedMode = localStorage.getItem("darkMode");
+				} catch {}
+				const isDark = savedMode === "true" || (savedMode !== "false" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 				if (isDark) document.documentElement.classList.add("dark");
 			})();
 		</script>
