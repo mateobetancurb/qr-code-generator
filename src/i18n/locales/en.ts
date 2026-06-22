@@ -2,14 +2,16 @@ import type { Translation } from "../types";
 
 export const en: Translation = {
 	meta: {
-		title: "QR Code Generator - Free Online QR Code Creator",
+		title: "Free QR Code Generator | Customize & Download",
 		description:
-			"Generate QR codes instantly with our free online QR code generator. Create custom QR codes for URLs, text, WiFi, contact info, and more. Fast, secure, and easy to use",
+			"Create custom QR codes for links and text with our free QR code generator. Choose colors, sizes, and patterns, then download PNG or SVG files instantly.",
 	},
 	header: {
 		home: "Home",
 		generateQr: "Generate QR",
 		features: "Features",
+		howItWorks: "How it works",
+		faq: "FAQ",
 		contact: "Contact",
 	},
 	hero: {
@@ -19,9 +21,11 @@ export const en: Translation = {
 		subtext:
 			"Create custom QR codes for your business, events, or personal use. Fast, free, and with full customization options including colors and sizes.",
 		cta: "Get Started",
-		statQrGenerated: "QR Codes Generated",
-		statFreeToUse: "Free to Use",
-		statGenerationTime: "Generation Time",
+		benefits: [
+			{ value: "Free", label: "No cost to use" },
+			{ value: "No account", label: "No registration" },
+			{ value: "On device", label: "Private by design" },
+		],
 	},
 	generator: {
 		title: "QR Code Generator",
@@ -49,11 +53,13 @@ export const en: Translation = {
 		heading: "Why Choose this tool?",
 		subheading:
 			"Powerful features designed to make QR code generation simple, fast, and customizable",
-		trustedTitle: "Trusted by Thousands",
-		statQrsLabel: "QR Codes Generated",
-		statCountriesLabel: "Countries",
-		statUptimeLabel: "Uptime",
-		statFreeLabel: "Free Forever",
+		highlightsTitle: "Everything you need to create a QR code",
+		highlights: [
+			{ value: "Local", label: "Browser processing" },
+			{ value: "PNG + SVG", label: "Download formats" },
+			{ value: "4", label: "Output sizes" },
+			{ value: "2", label: "Module patterns" },
+		],
 		cards: [
 			{
 				id: 1,
@@ -89,6 +95,56 @@ export const en: Translation = {
 			},
 		],
 	},
+	howItWorks: {
+		heading: "How to create a QR code",
+		subheading: "Turn a link or text into a downloadable QR code in three simple steps.",
+		steps: [
+			{
+				title: "Enter your content",
+				description: "Paste a website link or type the text you want your QR code to contain.",
+			},
+			{
+				title: "Customize the design",
+				description:
+					"Choose the size, square or dot pattern, and foreground and background colors.",
+			},
+			{
+				title: "Download your QR code",
+				description: "Save a PNG for everyday use or an SVG for sharp scaling in print and design.",
+			},
+		],
+	},
+	faq: {
+		heading: "QR code generator questions",
+		subheading: "Quick answers about creating, customizing, and downloading your QR code.",
+		items: [
+			{
+				question: "What can I put in a QR code?",
+				answer:
+					"You can encode a website link or any plain text. The scanner displays the text or offers to open the link when someone scans the code.",
+			},
+			{
+				question: "Is this QR code generator free?",
+				answer:
+					"Yes. You can generate, customize, and download QR codes without creating an account or paying a fee.",
+			},
+			{
+				question: "Is my content uploaded anywhere?",
+				answer:
+					"No. QR codes are generated locally in your browser, so the text you enter does not need to leave your device.",
+			},
+			{
+				question: "Should I download PNG or SVG?",
+				answer:
+					"PNG works well for websites, documents, and sharing. SVG stays sharp at any size and is better for print or design software.",
+			},
+			{
+				question: "How do I keep a custom QR code easy to scan?",
+				answer:
+					"Use strong contrast between foreground and background colors, and test the downloaded code with more than one camera before publishing it.",
+			},
+		],
+	},
 	footer: {
 		tagline:
 			"Generate beautiful, customizable QR codes instantly. Fast, free, and privacy-focused. Perfect for businesses, events, and personal use",
@@ -96,6 +152,8 @@ export const en: Translation = {
 		home: "Home",
 		qrGenerator: "QR Generator",
 		features: "Features",
+		howItWorks: "How it works",
+		faq: "FAQ",
 		copyright: "© {year} QRGenerator",
 		madeWith: "Made with 💙 for the community by Mateo",
 		locallyGenerated: "All QR codes generated locally in your browser",

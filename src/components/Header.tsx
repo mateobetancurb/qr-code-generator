@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { QrCode, Moon, Sun, Menu, X } from "lucide-react";
 import { useDarkMode } from "../context/DarkMode";
 import { useLocale } from "../context/Locale";
+import { localePath } from "../i18n/localeRouting";
 import type { Locale } from "../i18n/types";
 
 const LanguageToggle: React.FC = () => {
-	const { locale, setLocale } = useLocale();
+	const { locale } = useLocale();
 
 	const buttonClass = (lang: Locale) =>
 		`px-2 py-1 text-sm font-medium transition-colors duration-200 hover:cursor-pointer ${
@@ -16,23 +17,23 @@ const LanguageToggle: React.FC = () => {
 
 	return (
 		<div className="flex items-center gap-1" role="group" aria-label="Language">
-			<button
-				type="button"
-				onClick={() => setLocale("en")}
+			<a
+				href={localePath.en}
 				className={buttonClass("en")}
-				aria-current={locale === "en" ? "true" : undefined}
+				lang="en"
+				aria-current={locale === "en" ? "page" : undefined}
 			>
 				EN
-			</button>
+			</a>
 			<span className="text-gray-300 dark:text-gray-600">|</span>
-			<button
-				type="button"
-				onClick={() => setLocale("es")}
+			<a
+				href={localePath.es}
 				className={buttonClass("es")}
-				aria-current={locale === "es" ? "true" : undefined}
+				lang="es"
+				aria-current={locale === "es" ? "page" : undefined}
 			>
 				ES
-			</button>
+			</a>
 		</div>
 	);
 };
@@ -42,51 +43,40 @@ const Header: React.FC = () => {
 	const { t } = useLocale();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-	const scrollToSection = (sectionId: string) => {
-		const element = document.getElementById(sectionId);
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
-		}
+	const closeMenu = () => {
 		setIsMenuOpen(false);
 	};
+	const sectionLinkClass =
+		"text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200";
 
 	return (
 		<header className="fixed w-full top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/20 dark:border-gray-700/20 transition-all duration-300">
 			<div className="container mx-auto px-4 py-4">
 				<div className="flex items-center justify-between">
-					<div className="flex items-center space-x-2">
+					<a href="#home" className="flex items-center space-x-2" aria-label={t.header.home}>
 						<div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
 							<QrCode className="w-6 h-6 text-white" />
 						</div>
 						<span className="text-xl font-bold text-gray-800 dark:text-white">QRGenerator</span>
-					</div>
+					</a>
 
 					{/* desktop nav */}
 					<nav className="hidden md:flex items-center space-x-8">
-						<button
-							onClick={() => scrollToSection("home")}
-							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
-						>
+						<a href="#home" className={sectionLinkClass}>
 							{t.header.home}
-						</button>
-						<button
-							onClick={() => scrollToSection("generator")}
-							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
-						>
+						</a>
+						<a href="#generator" className={sectionLinkClass}>
 							{t.header.generateQr}
-						</button>
-						<button
-							onClick={() => scrollToSection("features")}
-							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
-						>
+						</a>
+						<a href="#features" className={sectionLinkClass}>
 							{t.header.features}
-						</button>
-						<button
-							onClick={() => scrollToSection("contact")}
-							className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
-						>
-							{t.header.contact}
-						</button>
+						</a>
+						<a href="#how-it-works" className={sectionLinkClass}>
+							{t.header.howItWorks}
+						</a>
+						<a href="#faq" className={sectionLinkClass}>
+							{t.header.faq}
+						</a>
 						<LanguageToggle />
 						<button
 							onClick={toggleDarkMode}
@@ -134,30 +124,21 @@ const Header: React.FC = () => {
 				>
 					<div className="py-4">
 						<nav className="flex flex-col space-y-4">
-							<button
-								onClick={() => scrollToSection("home")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
-							>
+							<a href="#home" onClick={closeMenu} className={sectionLinkClass}>
 								{t.header.home}
-							</button>
-							<button
-								onClick={() => scrollToSection("generator")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
-							>
+							</a>
+							<a href="#generator" onClick={closeMenu} className={sectionLinkClass}>
 								{t.header.generateQr}
-							</button>
-							<button
-								onClick={() => scrollToSection("features")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
-							>
+							</a>
+							<a href="#features" onClick={closeMenu} className={sectionLinkClass}>
 								{t.header.features}
-							</button>
-							<button
-								onClick={() => scrollToSection("contact")}
-								className="text-left text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200"
-							>
-								{t.header.contact}
-							</button>
+							</a>
+							<a href="#how-it-works" onClick={closeMenu} className={sectionLinkClass}>
+								{t.header.howItWorks}
+							</a>
+							<a href="#faq" onClick={closeMenu} className={sectionLinkClass}>
+								{t.header.faq}
+							</a>
 						</nav>
 					</div>
 				</div>

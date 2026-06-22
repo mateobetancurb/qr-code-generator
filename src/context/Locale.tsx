@@ -1,30 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo } from "react";
 import { getTranslation } from "../i18n/getTranslation";
+import { getLocaleFromPathname } from "../i18n/localeRouting";
 import type { Locale, Translation } from "../i18n/types";
-
-const LOCALE_STORAGE_KEY = "locale";
-
-function readStoredLocale(): Locale | null {
-	if (typeof window === "undefined") return null;
-	const raw = localStorage.getItem(LOCALE_STORAGE_KEY);
-	if (raw === "en" || raw === "es") return raw;
-	return null;
-}
-
-function detectBrowserLocale(): Locale {
-	if (typeof window === "undefined") return "en";
-	return navigator.language.toLowerCase().startsWith("es") ? "es" : "en";
-}
-
-function getInitialLocale(): Locale {
-	const stored = readStoredLocale();
-	if (stored !== null) return stored;
-	return detectBrowserLocale();
-}
 
 interface LocaleContextType {
 	locale: Locale;
-	setLocale: (locale: Locale) => void;
 	t: Translation;
 }
 
@@ -39,14 +19,9 @@ export const useLocale = () => {
 };
 
 export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	const [locale, setLocaleState] = useState<Locale>(getInitialLocale);
-
-	const setLocale = (next: Locale) => {
-		setLocaleState(next);
-		if (typeof window !== "undefined") {
-			localStorage.setItem(LOCALE_STORAGE_KEY, next);
-		}
-	};
+	const locale = getLocaleFromPathname(
+		typeof window === "undefined" ? "/" : window.location.pathname,
+	);
 
 	const t = useMemo(() => getTranslation(locale), [locale]);
 
@@ -60,7 +35,5 @@ export const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 		}
 	}, [locale, t]);
 
-	return (
-		<LocaleContext.Provider value={{ locale, setLocale, t }}>{children}</LocaleContext.Provider>
-	);
+	return <LocaleContext.Provider value={{ locale, t }}>{children}</LocaleContext.Provider>;
 };

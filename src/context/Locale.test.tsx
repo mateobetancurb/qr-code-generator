@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { LocaleProvider, useLocale } from "./Locale";
@@ -15,8 +15,8 @@ const addDescriptionMeta = () => {
 };
 
 describe("LocaleProvider", () => {
-	it("restores a locale and updates document metadata", async () => {
-		localStorage.setItem("locale", "es");
+	it("uses the Spanish URL and updates document metadata", async () => {
+		window.history.replaceState({}, "", "/es/");
 		const meta = addDescriptionMeta();
 		const { result } = renderHook(() => useLocale(), { wrapper });
 
@@ -24,30 +24,19 @@ describe("LocaleProvider", () => {
 		await waitFor(() => expect(document.documentElement).toHaveAttribute("lang", "es"));
 		expect(document.title).toBe(result.current.t.meta.title);
 		expect(meta).toHaveAttribute("content", result.current.t.meta.description);
-
-		act(() => result.current.setLocale("en"));
-
-		expect(result.current.locale).toBe("en");
-		expect(localStorage.getItem("locale")).toBe("en");
 	});
 
-	it("detects Spanish browsers and defaults other languages to English", () => {
+	it("keeps the root URL in English regardless of browser or stored preference", () => {
+		localStorage.setItem("locale", "es");
 		vi.spyOn(window.navigator, "language", "get").mockReturnValue("es-CO");
-		const spanish = renderHook(() => useLocale(), { wrapper });
-		expect(spanish.result.current.locale).toBe("es");
-		spanish.unmount();
-
-		vi.spyOn(window.navigator, "language", "get").mockReturnValue("fr-FR");
 		const english = renderHook(() => useLocale(), { wrapper });
 		expect(english.result.current.locale).toBe("en");
 	});
 
-	it("ignores invalid stored locale values", () => {
-		localStorage.setItem("locale", "invalid");
-		vi.spyOn(window.navigator, "language", "get").mockReturnValue("en-US");
-
+	it("recognizes Spanish routes below the locale prefix", () => {
+		window.history.replaceState({}, "", "/es/ayuda");
 		const { result } = renderHook(() => useLocale(), { wrapper });
-		expect(result.current.locale).toBe("en");
+		expect(result.current.locale).toBe("es");
 	});
 
 	it("rejects use outside its provider", () => {

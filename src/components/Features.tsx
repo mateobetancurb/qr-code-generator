@@ -54,28 +54,18 @@ const Features: React.FC = () => {
 					})}
 				</div>
 
-				{/* Stats Section */}
+				{/* Factual feature highlights */}
 				<div className="mt-20 bg-gradient-to-r from-blue-400 to-blue-500 rounded-3xl p-12 text-center">
 					<h3 className="text-3xl md:text-4xl font-bold text-white mb-8">
-						{t.features.trustedTitle}
+						{t.features.highlightsTitle}
 					</h3>
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-						<div className="text-center">
-							<div className="text-4xl font-bold text-white mb-2">10,000+</div>
-							<div className="text-blue-100">{t.features.statQrsLabel}</div>
-						</div>
-						<div className="text-center">
-							<div className="text-4xl font-bold text-white mb-2">50+</div>
-							<div className="text-blue-100">{t.features.statCountriesLabel}</div>
-						</div>
-						<div className="text-center">
-							<div className="text-4xl font-bold text-white mb-2">99.9%</div>
-							<div className="text-blue-100">{t.features.statUptimeLabel}</div>
-						</div>
-						<div className="text-center">
-							<div className="text-4xl font-bold text-white mb-2">100%</div>
-							<div className="text-blue-100">{t.features.statFreeLabel}</div>
-						</div>
+						{t.features.highlights.map((highlight) => (
+							<div key={highlight.label} className="text-center">
+								<div className="text-4xl font-bold text-white mb-2">{highlight.value}</div>
+								<div className="text-blue-100">{highlight.label}</div>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>

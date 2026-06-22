@@ -5,13 +5,6 @@ import { useLocale } from "../context/Locale";
 const Hero: React.FC = () => {
 	const { t } = useLocale();
 
-	const scrollToGenerator = () => {
-		const element = document.getElementById("generator");
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
-		}
-	};
-
 	return (
 		<section
 			id="home"
@@ -50,8 +43,8 @@ const Hero: React.FC = () => {
 					</p>
 
 					{/* cta button */}
-					<button
-						onClick={scrollToGenerator}
+					<a
+						href="#generator"
 						className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 via-sky-500 to-blue-600 hover:from-blue-600 hover:via-sky-600 hover:to-blue-700 text-white text-lg font-semibold rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 animate-slide-up animation-delay-300 overflow-hidden hover:cursor-pointer"
 					>
 						<div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -59,22 +52,21 @@ const Hero: React.FC = () => {
 							{t.hero.cta}
 							<ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
 						</span>
-					</button>
+					</a>
 
 					{/* stats */}
 					<div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 animate-slide-up animation-delay-400">
-						<div className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-							<div className="text-3xl font-bold text-gray-800 dark:text-white">10K+</div>
-							<div className="text-gray-600 dark:text-gray-300">{t.hero.statQrGenerated}</div>
-						</div>
-						<div className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-							<div className="text-3xl font-bold text-gray-800 dark:text-white">100%</div>
-							<div className="text-gray-600 dark:text-gray-300">{t.hero.statFreeToUse}</div>
-						</div>
-						<div className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-							<div className="text-3xl font-bold text-gray-800 dark:text-white">0s</div>
-							<div className="text-gray-600 dark:text-gray-300">{t.hero.statGenerationTime}</div>
-						</div>
+						{t.hero.benefits.map((benefit) => (
+							<div
+								key={benefit.label}
+								className="text-center p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-white/20 dark:border-gray-700/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+							>
+								<div className="text-3xl font-bold text-gray-800 dark:text-white">
+									{benefit.value}
+								</div>
+								<div className="text-gray-600 dark:text-gray-300">{benefit.label}</div>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>

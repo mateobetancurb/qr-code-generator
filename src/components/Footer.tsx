@@ -6,13 +6,6 @@ import { useLocale } from "../context/Locale";
 const Footer: React.FC = () => {
 	const { t } = useLocale();
 
-	const scrollToSection = (sectionId: string) => {
-		const element = document.getElementById(sectionId);
-		if (element) {
-			element.scrollIntoView({ behavior: "smooth" });
-		}
-	};
-
 	return (
 		<footer
 			id="contact"
@@ -62,28 +55,44 @@ const Footer: React.FC = () => {
 						<h3 className="text-lg font-semibold mb-4">{t.footer.quickLinks}</h3>
 						<ul className="space-y-2">
 							<li>
-								<button
-									onClick={() => scrollToSection("home")}
+								<a
+									href="#home"
 									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
 									{t.footer.home}
-								</button>
+								</a>
 							</li>
 							<li>
-								<button
-									onClick={() => scrollToSection("generator")}
+								<a
+									href="#generator"
 									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
 									{t.footer.qrGenerator}
-								</button>
+								</a>
 							</li>
 							<li>
-								<button
-									onClick={() => scrollToSection("features")}
+								<a
+									href="#features"
 									className="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer"
 								>
 									{t.footer.features}
-								</button>
+								</a>
+							</li>
+							<li>
+								<a
+									href="#how-it-works"
+									className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+								>
+									{t.footer.howItWorks}
+								</a>
+							</li>
+							<li>
+								<a
+									href="#faq"
+									className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+								>
+									{t.footer.faq}
+								</a>
 							</li>
 						</ul>
 					</div>

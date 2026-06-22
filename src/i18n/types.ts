@@ -6,6 +6,21 @@ export interface FeatureCardCopy {
 	description: string;
 }
 
+export interface LabeledValueCopy {
+	value: string;
+	label: string;
+}
+
+export interface StepCopy {
+	title: string;
+	description: string;
+}
+
+export interface FaqCopy {
+	question: string;
+	answer: string;
+}
+
 export interface Translation {
 	meta: {
 		title: string;
@@ -15,6 +30,8 @@ export interface Translation {
 		home: string;
 		generateQr: string;
 		features: string;
+		howItWorks: string;
+		faq: string;
 		contact: string;
 	};
 	hero: {
@@ -23,9 +40,7 @@ export interface Translation {
 		headlineLine2: string;
 		subtext: string;
 		cta: string;
-		statQrGenerated: string;
-		statFreeToUse: string;
-		statGenerationTime: string;
+		benefits: LabeledValueCopy[];
 	};
 	generator: {
 		title: string;
@@ -52,12 +67,19 @@ export interface Translation {
 	features: {
 		heading: string;
 		subheading: string;
-		trustedTitle: string;
-		statQrsLabel: string;
-		statCountriesLabel: string;
-		statUptimeLabel: string;
-		statFreeLabel: string;
+		highlightsTitle: string;
+		highlights: LabeledValueCopy[];
 		cards: FeatureCardCopy[];
+	};
+	howItWorks: {
+		heading: string;
+		subheading: string;
+		steps: StepCopy[];
+	};
+	faq: {
+		heading: string;
+		subheading: string;
+		items: FaqCopy[];
 	};
 	footer: {
 		tagline: string;
@@ -65,6 +87,8 @@ export interface Translation {
 		home: string;
 		qrGenerator: string;
 		features: string;
+		howItWorks: string;
+		faq: string;
 		copyright: string;
 		madeWith: string;
 		locallyGenerated: string;

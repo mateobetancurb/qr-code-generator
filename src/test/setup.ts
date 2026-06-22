@@ -31,6 +31,7 @@ const createCanvasContext = (): CanvasRenderingContext2D =>
 
 beforeEach(() => {
 	localStorage.clear();
+	window.history.replaceState({}, "", "/");
 	Object.defineProperty(window, "matchMedia", {
 		configurable: true,
 		value: vi.fn().mockImplementation((query: string) => ({
