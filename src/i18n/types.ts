@@ -6,16 +6,41 @@ export interface FeatureCardCopy {
 	description: string;
 }
 
+export interface LabeledValueCopy {
+	value: string;
+	label: string;
+}
+
+export interface StepCopy {
+	title: string;
+	description: string;
+}
+
+export interface FaqCopy {
+	question: string;
+	answer: string;
+}
+
 export interface Translation {
 	meta: {
 		title: string;
 		description: string;
 	};
 	header: {
+		skipToContent: string;
 		home: string;
 		generateQr: string;
 		features: string;
+		howItWorks: string;
+		faq: string;
 		contact: string;
+		language: string;
+		primaryNavigation: string;
+		mobileNavigation: string;
+		openMenu: string;
+		closeMenu: string;
+		switchToDark: string;
+		switchToLight: string;
 	};
 	hero: {
 		badge: string;
@@ -23,9 +48,7 @@ export interface Translation {
 		headlineLine2: string;
 		subtext: string;
 		cta: string;
-		statQrGenerated: string;
-		statFreeToUse: string;
-		statGenerationTime: string;
+		benefits: LabeledValueCopy[];
 	};
 	generator: {
 		title: string;
@@ -43,21 +66,33 @@ export interface Translation {
 		patternDots: string;
 		colors: string;
 		foreground: string;
+		foregroundHex: string;
 		background: string;
+		backgroundHex: string;
 		preview: string;
 		emptyPreview: string;
+		previewReady: string;
+		previewLabel: string;
+		generationError: string;
 		downloadPng: string;
 		downloadSvg: string;
 	};
 	features: {
 		heading: string;
 		subheading: string;
-		trustedTitle: string;
-		statQrsLabel: string;
-		statCountriesLabel: string;
-		statUptimeLabel: string;
-		statFreeLabel: string;
+		highlightsTitle: string;
+		highlights: LabeledValueCopy[];
 		cards: FeatureCardCopy[];
+	};
+	howItWorks: {
+		heading: string;
+		subheading: string;
+		steps: StepCopy[];
+	};
+	faq: {
+		heading: string;
+		subheading: string;
+		items: FaqCopy[];
 	};
 	footer: {
 		tagline: string;
@@ -65,6 +100,12 @@ export interface Translation {
 		home: string;
 		qrGenerator: string;
 		features: string;
+		howItWorks: string;
+		faq: string;
+		socialLinks: string;
+		github: string;
+		twitter: string;
+		linkedin: string;
 		copyright: string;
 		madeWith: string;
 		locallyGenerated: string;

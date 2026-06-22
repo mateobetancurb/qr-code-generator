@@ -35,8 +35,8 @@ const generateAndDownload = async (
 	await page.getByLabel("Text or URL").fill(content);
 	await page.locator("select").selectOption("large");
 	await page.getByRole("button", { name: "Dots" }).click();
-	await page.getByLabel("Foreground").fill("#123456");
-	await page.getByLabel("Background").fill("#fefefe");
+	await page.getByLabel("Foreground hex color").fill("#123456");
+	await page.getByLabel("Background hex color").fill("#fefefe");
 
 	const pngPromise = page.waitForEvent("download");
 	await page.getByRole("button", { name: "Download PNG" }).click();
@@ -64,5 +64,74 @@ test.describe("QR generation and downloads", () => {
 
 	test("preserves Unicode content in downloaded QR codes", async ({ page }) => {
 		await generateAndDownload(page, "QR prueba ñ 🚀", "qr-prueba");
+	});
+});
+
+test.describe("localized SEO", () => {
+	for (const locale of [
+		{
+			path: "/",
+			lang: "en",
+			title: "Free QR Code Generator | Customize & Download",
+			canonical: "https://qr-code-generator-2pn.pages.dev/",
+			heading: /generate your qr code instantly/i,
+		},
+		{
+			path: "/es/",
+			lang: "es",
+			title: "Generador de códigos QR gratis | Personaliza y descarga",
+			canonical: "https://qr-code-generator-2pn.pages.dev/es/",
+			heading: /crea tu código qr al instante/i,
+		},
+	]) {
+		test(`${locale.path} exposes localized crawl metadata and content`, async ({ page }) => {
+			await page.goto(locale.path);
+
+			await expect(page).toHaveTitle(locale.title);
+			await expect(page.locator("html")).toHaveAttribute("lang", locale.lang);
+			await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", locale.canonical);
+			await expect(page.locator('link[hreflang="en"]')).toHaveAttribute(
+				"href",
+				"https://qr-code-generator-2pn.pages.dev/",
+			);
+			await expect(page.locator('link[hreflang="es"]')).toHaveAttribute(
+				"href",
+				"https://qr-code-generator-2pn.pages.dev/es/",
+			);
+			await expect(page.getByRole("heading", { level: 1, name: locale.heading })).toHaveCount(1);
+			const structuredData = page.locator('script[type="application/ld+json"]');
+			await expect(structuredData).toHaveCount(1);
+			const graph = JSON.parse((await structuredData.textContent()) ?? "{}")["@graph"];
+			expect(graph.map((item: { "@type": string }) => item["@type"])).toEqual([
+				"WebSite",
+				"WebApplication",
+			]);
+			await expect(page.getByRole("link", { name: "EN", exact: true }).first()).toHaveAttribute(
+				"href",
+				"/",
+			);
+			await expect(page.getByRole("link", { name: "ES", exact: true }).first()).toHaveAttribute(
+				"href",
+				"/es/",
+			);
+		});
+	}
+
+	test("publishes crawl and social assets", async ({ request }) => {
+		const robots = await request.get("/robots.txt");
+		expect(robots.ok()).toBe(true);
+		expect(await robots.text()).toContain(
+			"Sitemap: https://qr-code-generator-2pn.pages.dev/sitemap.xml",
+		);
+
+		const sitemap = await request.get("/sitemap.xml");
+		expect(sitemap.ok()).toBe(true);
+		const sitemapXml = await sitemap.text();
+		expect(sitemapXml).toContain("https://qr-code-generator-2pn.pages.dev/");
+		expect(sitemapXml).toContain("https://qr-code-generator-2pn.pages.dev/es/");
+
+		const socialCard = await request.get("/qr-code-social-card.png");
+		expect(socialCard.ok()).toBe(true);
+		expect(socialCard.headers()["content-type"]).toBe("image/png");
 	});
 });

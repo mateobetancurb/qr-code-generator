@@ -2,15 +2,25 @@ import type { Translation } from "../types";
 
 export const es: Translation = {
 	meta: {
-		title: "Generador de códigos QR - Creador en línea gratis",
+		title: "Generador de códigos QR gratis | Personaliza y descarga",
 		description:
-			"Genera códigos QR al instante con nuestro generador gratuito en línea. Crea códigos QR personalizados para URLs, texto, WiFi, contactos y más. Rápido, seguro y fácil de usar",
+			"Crea códigos QR personalizados para enlaces y texto gratis. Elige colores, tamaños y patrones, y descarga tus archivos en formato PNG o SVG al instante.",
 	},
 	header: {
+		skipToContent: "Saltar al contenido principal",
 		home: "Inicio",
 		generateQr: "Generar QR",
 		features: "Características",
+		howItWorks: "Cómo funciona",
+		faq: "Preguntas frecuentes",
 		contact: "Contacto",
+		language: "Idioma",
+		primaryNavigation: "Navegación principal",
+		mobileNavigation: "Navegación móvil",
+		openMenu: "Abrir menú de navegación",
+		closeMenu: "Cerrar menú de navegación",
+		switchToDark: "Cambiar al modo oscuro",
+		switchToLight: "Cambiar al modo claro",
 	},
 	hero: {
 		badge: "Generación de QR rápida y confiable",
@@ -19,9 +29,11 @@ export const es: Translation = {
 		subtext:
 			"Crea códigos QR personalizados para tu negocio, eventos o uso personal. Rápido, gratis y con opciones completas de personalización, incluidos colores y tamaños.",
 		cta: "Empezar",
-		statQrGenerated: "Códigos QR generados",
-		statFreeToUse: "Gratis",
-		statGenerationTime: "Tiempo de generación",
+		benefits: [
+			{ value: "Gratis", label: "Sin costo" },
+			{ value: "Sin cuenta", label: "Sin registro" },
+			{ value: "En tu equipo", label: "Privado por diseño" },
+		],
 	},
 	generator: {
 		title: "Generador de códigos QR",
@@ -40,20 +52,28 @@ export const es: Translation = {
 		patternDots: "Puntos",
 		colors: "Colores",
 		foreground: "Primer plano",
+		foregroundHex: "Color hexadecimal de primer plano",
 		background: "Fondo",
+		backgroundHex: "Color hexadecimal de fondo",
 		preview: "Vista previa",
 		emptyPreview: "Escribe texto para generar el código QR",
+		previewReady: "La vista previa del código QR está lista",
+		previewLabel: "Vista previa del código QR generado",
+		generationError:
+			"No se pudo generar el código QR. Revisa el contenido y los colores e inténtalo de nuevo.",
 		downloadPng: "Descargar PNG",
 		downloadSvg: "Descargar SVG",
 	},
 	features: {
 		heading: "¿Por qué elegir esta herramienta?",
 		subheading: "Funciones potentes para que crear códigos QR sea simple, rápido y personalizable",
-		trustedTitle: "Confiado por miles",
-		statQrsLabel: "Códigos QR generados",
-		statCountriesLabel: "Países",
-		statUptimeLabel: "Disponibilidad",
-		statFreeLabel: "Gratis para siempre",
+		highlightsTitle: "Todo lo que necesitas para crear un código QR",
+		highlights: [
+			{ value: "Local", label: "Procesamiento en el navegador" },
+			{ value: "PNG + SVG", label: "Formatos de descarga" },
+			{ value: "4", label: "Tamaños de salida" },
+			{ value: "2", label: "Patrones de módulos" },
+		],
 		cards: [
 			{
 				id: 1,
@@ -90,6 +110,58 @@ export const es: Translation = {
 			},
 		],
 	},
+	howItWorks: {
+		heading: "Cómo crear un código QR",
+		subheading: "Convierte un enlace o texto en un código QR descargable en tres pasos sencillos.",
+		steps: [
+			{
+				title: "Escribe el contenido",
+				description:
+					"Pega el enlace de un sitio web o escribe el texto que quieres incluir en el código QR.",
+			},
+			{
+				title: "Personaliza el diseño",
+				description:
+					"Elige el tamaño, el patrón de cuadrados o puntos y los colores de frente y fondo.",
+			},
+			{
+				title: "Descarga el código QR",
+				description:
+					"Guarda un PNG para uso diario o un SVG que mantenga la nitidez al imprimir y diseñar.",
+			},
+		],
+	},
+	faq: {
+		heading: "Preguntas sobre el generador de códigos QR",
+		subheading: "Respuestas rápidas sobre cómo crear, personalizar y descargar tu código QR.",
+		items: [
+			{
+				question: "¿Qué puedo incluir en un código QR?",
+				answer:
+					"Puedes codificar el enlace de un sitio web o cualquier texto. Al escanearlo, el dispositivo muestra el texto u ofrece abrir el enlace.",
+			},
+			{
+				question: "¿Este generador de códigos QR es gratis?",
+				answer:
+					"Sí. Puedes generar, personalizar y descargar códigos QR sin crear una cuenta ni pagar una tarifa.",
+			},
+			{
+				question: "¿Mi contenido se sube a algún servidor?",
+				answer:
+					"No. Los códigos QR se generan localmente en tu navegador, así que el texto ingresado no necesita salir de tu dispositivo.",
+			},
+			{
+				question: "¿Debo descargar PNG o SVG?",
+				answer:
+					"PNG funciona bien para sitios web, documentos y compartir. SVG conserva la nitidez a cualquier tamaño y es mejor para impresión o diseño.",
+			},
+			{
+				question: "¿Cómo mantengo fácil de escanear un código QR personalizado?",
+				answer:
+					"Usa un contraste fuerte entre los colores de frente y fondo, y prueba el archivo descargado con más de una cámara antes de publicarlo.",
+			},
+		],
+	},
 	footer: {
 		tagline:
 			"Genera códigos QR bonitos y personalizables al instante. Rápido, gratis y con enfoque en la privacidad. Ideal para negocios, eventos y uso personal",
@@ -97,6 +169,12 @@ export const es: Translation = {
 		home: "Inicio",
 		qrGenerator: "Generador QR",
 		features: "Características",
+		howItWorks: "Cómo funciona",
+		faq: "Preguntas frecuentes",
+		socialLinks: "Enlaces sociales",
+		github: "Mateo Betancur en GitHub",
+		twitter: "Mateo Betancur en X",
+		linkedin: "Mateo Betancur en LinkedIn",
 		copyright: "© {year} QRGenerator",
 		madeWith: "Hecho con 💙 para la comunidad por Mateo",
 		locallyGenerated: "Todos los códigos QR se generan localmente en tu navegador",
