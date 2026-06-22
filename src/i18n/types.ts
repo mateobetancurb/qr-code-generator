@@ -1,24 +1,14 @@
 export type Locale = "en" | "es";
 
-export interface FeatureCardCopy {
-	id: number;
-	title: string;
-	description: string;
-}
-
-export interface LabeledValueCopy {
-	value: string;
-	label: string;
-}
-
-export interface StepCopy {
-	title: string;
-	description: string;
-}
-
 export interface FaqCopy {
 	question: string;
 	answer: string;
+}
+
+export interface TrustCopy {
+	icon: "check" | "shield";
+	title: string;
+	description: string;
 }
 
 export interface Translation {
@@ -29,33 +19,20 @@ export interface Translation {
 	header: {
 		skipToContent: string;
 		home: string;
-		generateQr: string;
-		features: string;
-		howItWorks: string;
-		faq: string;
-		contact: string;
 		language: string;
-		primaryNavigation: string;
-		mobileNavigation: string;
-		openMenu: string;
-		closeMenu: string;
 		switchToDark: string;
 		switchToLight: string;
 	};
-	hero: {
-		badge: string;
-		headlineLine1: string;
-		headlineLine2: string;
-		subtext: string;
-		cta: string;
-		benefits: LabeledValueCopy[];
-	};
 	generator: {
+		kicker: string;
 		title: string;
 		subtitle: string;
 		content: string;
+		contentHint: string;
 		textOrUrl: string;
 		placeholder: string;
+		customize: string;
+		customizeHint: string;
 		size: string;
 		sizeSmall: string;
 		sizeMedium: string;
@@ -70,6 +47,7 @@ export interface Translation {
 		background: string;
 		backgroundHex: string;
 		preview: string;
+		livePreview: string;
 		emptyPreview: string;
 		previewReady: string;
 		previewLabel: string;
@@ -77,17 +55,9 @@ export interface Translation {
 		downloadPng: string;
 		downloadSvg: string;
 	};
-	features: {
-		heading: string;
-		subheading: string;
-		highlightsTitle: string;
-		highlights: LabeledValueCopy[];
-		cards: FeatureCardCopy[];
-	};
-	howItWorks: {
-		heading: string;
-		subheading: string;
-		steps: StepCopy[];
+	trust: {
+		label: string;
+		items: TrustCopy[];
 	};
 	faq: {
 		heading: string;
@@ -95,19 +65,7 @@ export interface Translation {
 		items: FaqCopy[];
 	};
 	footer: {
-		tagline: string;
-		quickLinks: string;
-		home: string;
-		qrGenerator: string;
-		features: string;
-		howItWorks: string;
-		faq: string;
-		socialLinks: string;
-		github: string;
-		twitter: string;
-		linkedin: string;
 		copyright: string;
-		madeWith: string;
-		locallyGenerated: string;
+		localProcessing: string;
 	};
 }

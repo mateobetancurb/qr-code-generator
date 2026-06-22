@@ -8,7 +8,7 @@ const renderGenerator = () => {
 		<button data-module-style="square" aria-pressed="true"></button><button data-module-style="dots" aria-pressed="false"></button>
 		<input data-color-picker="foreground" value="#000000"><input data-color-text="foreground" value="#000000">
 		<input data-color-picker="background" value="#ffffff"><input data-color-text="background" value="#ffffff">
-		<canvas data-qr-canvas hidden></canvas><div data-empty-preview></div>
+		<canvas data-qr-canvas hidden></canvas><div data-empty-preview></div><details data-customization></details>
 		<p data-qr-status data-empty="Empty" data-ready="Ready"></p><p data-qr-error hidden>Error</p><div data-downloads hidden><button data-download="png"></button><button data-download="svg"></button></div>
 	</section>`;
 	initQRGenerator();
@@ -73,5 +73,10 @@ describe("initQRGenerator", () => {
 		expect(view.downloads).toHaveAttribute("hidden");
 		document.body.replaceChildren();
 		expect(() => initQRGenerator()).not.toThrow();
+	});
+
+	it("keeps customization collapsed on mobile", () => {
+		renderGenerator();
+		expect(document.querySelector("[data-customization]")).not.toHaveAttribute("open");
 	});
 });

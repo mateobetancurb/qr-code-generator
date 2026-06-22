@@ -17,6 +17,8 @@
 		"check": "pnpm format:check && pnpm lint && pnpm test:coverage && pnpm build && pnpm test:e2e"
 	},
 	"dependencies": {
+		"@fontsource-variable/geist": "^5.2.9",
+		"@phosphor-icons/web": "^2.1.2",
 		"@tailwindcss/vite": "^4.3.1",
 		"qrcode": "^1.5.4",
 		"tailwindcss": "^4.3.1"
