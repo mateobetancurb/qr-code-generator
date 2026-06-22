@@ -35,8 +35,8 @@ const generateAndDownload = async (
 	await page.getByLabel("Text or URL").fill(content);
 	await page.locator("select").selectOption("large");
 	await page.getByRole("button", { name: "Dots" }).click();
-	await page.getByLabel("Foreground").fill("#123456");
-	await page.getByLabel("Background").fill("#fefefe");
+	await page.getByLabel("Foreground hex color").fill("#123456");
+	await page.getByLabel("Background hex color").fill("#fefefe");
 
 	const pngPromise = page.waitForEvent("download");
 	await page.getByRole("button", { name: "Download PNG" }).click();

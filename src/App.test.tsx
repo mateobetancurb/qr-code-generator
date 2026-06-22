@@ -50,4 +50,33 @@ describe("App", () => {
 		await user.click(themeButton as HTMLElement);
 		await waitFor(() => expect(document.documentElement).toHaveClass("dark"));
 	});
+
+	it("exposes skip navigation and named icon controls", () => {
+		render(<App />);
+
+		expect(screen.getByRole("link", { name: "Skip to main content" })).toHaveAttribute(
+			"href",
+			"#main-content",
+		);
+		expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
+		expect(screen.getAllByRole("button", { name: "Switch to dark mode" })).toHaveLength(2);
+		expect(screen.getByRole("link", { name: "Mateo Betancur on GitHub" })).toBeVisible();
+	});
+
+	it("only exposes mobile navigation links while the disclosure is open", async () => {
+		const user = userEvent.setup();
+		render(<App />);
+		const menuButton = screen.getByRole("button", { name: "Open navigation menu" });
+
+		expect(screen.queryByRole("navigation", { name: "Mobile navigation" })).toBeNull();
+		await user.click(menuButton);
+		expect(screen.getByRole("navigation", { name: "Mobile navigation" })).toBeVisible();
+		expect(menuButton).toHaveAttribute("aria-expanded", "true");
+
+		await user.keyboard("{Escape}");
+		await waitFor(() =>
+			expect(screen.queryByRole("navigation", { name: "Mobile navigation" })).toBeNull(),
+		);
+		expect(menuButton).toHaveFocus();
+	});
 });

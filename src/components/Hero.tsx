@@ -23,7 +23,7 @@ const Hero: React.FC = () => {
 				<div className="relative z-10 max-w-4xl mx-auto animate-fade-in">
 					{/* badge */}
 					<div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-100 to-sky-100 dark:from-blue-900/40 dark:to-sky-900/40 backdrop-blur-sm rounded-full text-blue-700 dark:text-blue-300 text-sm font-medium mb-8 animate-slide-up border border-blue-200/50 dark:border-blue-700/50 shadow-lg">
-						<Zap className="w-4 h-4 mr-2" />
+						<Zap aria-hidden="true" className="w-4 h-4 mr-2" />
 						{t.hero.badge}
 					</div>
 
@@ -50,7 +50,10 @@ const Hero: React.FC = () => {
 						<div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 						<span className="relative z-10 flex items-center">
 							{t.hero.cta}
-							<ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+							<ArrowRight
+								aria-hidden="true"
+								className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
+							/>
 						</span>
 					</a>
 

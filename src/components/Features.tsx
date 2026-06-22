@@ -41,7 +41,7 @@ const Features: React.FC = () => {
 								<div
 									className={`w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200`}
 								>
-									<Icon className={`w-8 h-8 ${feature.color}`} />
+									<Icon aria-hidden="true" className={`w-8 h-8 ${feature.color}`} />
 								</div>
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
 									{feature.title}
@@ -55,7 +55,7 @@ const Features: React.FC = () => {
 				</div>
 
 				{/* Factual feature highlights */}
-				<div className="mt-20 bg-gradient-to-r from-blue-400 to-blue-500 rounded-3xl p-12 text-center">
+				<div className="mt-20 bg-gradient-to-r from-blue-600 to-blue-700 rounded-3xl p-12 text-center">
 					<h3 className="text-3xl md:text-4xl font-bold text-white mb-8">
 						{t.features.highlightsTitle}
 					</h3>
@@ -63,7 +63,7 @@ const Features: React.FC = () => {
 						{t.features.highlights.map((highlight) => (
 							<div key={highlight.label} className="text-center">
 								<div className="text-4xl font-bold text-white mb-2">{highlight.value}</div>
-								<div className="text-blue-100">{highlight.label}</div>
+								<div className="text-white">{highlight.label}</div>
 							</div>
 						))}
 					</div>

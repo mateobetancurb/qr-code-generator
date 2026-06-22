@@ -27,12 +27,20 @@ export interface Translation {
 		description: string;
 	};
 	header: {
+		skipToContent: string;
 		home: string;
 		generateQr: string;
 		features: string;
 		howItWorks: string;
 		faq: string;
 		contact: string;
+		language: string;
+		primaryNavigation: string;
+		mobileNavigation: string;
+		openMenu: string;
+		closeMenu: string;
+		switchToDark: string;
+		switchToLight: string;
 	};
 	hero: {
 		badge: string;
@@ -58,9 +66,14 @@ export interface Translation {
 		patternDots: string;
 		colors: string;
 		foreground: string;
+		foregroundHex: string;
 		background: string;
+		backgroundHex: string;
 		preview: string;
 		emptyPreview: string;
+		previewReady: string;
+		previewLabel: string;
+		generationError: string;
 		downloadPng: string;
 		downloadSvg: string;
 	};
@@ -89,6 +102,10 @@ export interface Translation {
 		features: string;
 		howItWorks: string;
 		faq: string;
+		socialLinks: string;
+		github: string;
+		twitter: string;
+		linkedin: string;
 		copyright: string;
 		madeWith: string;
 		locallyGenerated: string;

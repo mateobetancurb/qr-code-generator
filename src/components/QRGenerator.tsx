@@ -25,6 +25,7 @@ const QRGenerator: React.FC = () => {
 		logo: undefined,
 	});
 	const [qrCodeDataURL, setQrCodeDataURL] = useState<string>("");
+	const [generationError, setGenerationError] = useState(false);
 	// const [logoFile, setLogoFile] = useState<File | null>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	// const fileInputRef = useRef<HTMLInputElement>(null);
@@ -32,6 +33,7 @@ const QRGenerator: React.FC = () => {
 	const generateQRCode = () => {
 		if (!options.text.trim()) {
 			setQrCodeDataURL("");
+			setGenerationError(false);
 			return;
 		}
 
@@ -47,8 +49,11 @@ const QRGenerator: React.FC = () => {
 				backgroundColor: options.backgroundColor,
 			});
 			setQrCodeDataURL(canvas.toDataURL("image/png"));
+			setGenerationError(false);
 		} catch (error) {
 			console.error("Error generating QR code:", error);
+			setQrCodeDataURL("");
+			setGenerationError(true);
 		}
 	};
 
@@ -122,7 +127,7 @@ const QRGenerator: React.FC = () => {
 						<div className="space-y-6">
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
 								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-									<Link className="w-5 h-5 mr-2 text-blue-500" />
+									<Link aria-hidden="true" className="w-5 h-5 mr-2 text-blue-600" />
 									{t.generator.content}
 								</h3>
 								<div className="space-y-4">
@@ -222,11 +227,15 @@ const QRGenerator: React.FC = () => {
 								</div>
 							</div> */}
 							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-									<Resize className="w-5 h-5 mr-2 text-blue-500" />
+								<label
+									htmlFor="qr-size"
+									className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center"
+								>
+									<Resize aria-hidden="true" className="w-5 h-5 mr-2 text-blue-600" />
 									{t.generator.size}
-								</h3>
+								</label>
 								<select
+									id="qr-size"
 									value={options.size}
 									onChange={(e) =>
 										setOptions({
@@ -243,11 +252,13 @@ const QRGenerator: React.FC = () => {
 								</select>
 							</div>
 
-							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-									<Shapes className="w-5 h-5 mr-2 text-blue-500" />
-									{t.generator.pattern}
-								</h3>
+							<fieldset className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+								<legend className="w-full text-xl font-semibold text-gray-800 dark:text-white mb-4">
+									<span className="flex items-center">
+										<Shapes aria-hidden="true" className="w-5 h-5 mr-2 text-blue-600" />
+										{t.generator.pattern}
+									</span>
+								</legend>
 								<div className="grid grid-cols-2 gap-3">
 									{(["square", "dots"] as const).map((moduleStyle) => {
 										const isSelected = options.moduleStyle === moduleStyle;
@@ -259,7 +270,7 @@ const QRGenerator: React.FC = () => {
 												onClick={() => setOptions({ ...options, moduleStyle })}
 												className={`flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 font-medium transition-all duration-200 hover:cursor-pointer ${
 													isSelected
-														? "border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-300"
+														? "border-blue-600 bg-blue-50 text-blue-800 dark:border-blue-400 dark:bg-blue-900/40 dark:text-blue-200"
 														: "border-gray-200 text-gray-700 hover:border-blue-300 dark:border-gray-700 dark:text-gray-300 dark:hover:border-blue-700"
 												}`}
 											>
@@ -274,13 +285,15 @@ const QRGenerator: React.FC = () => {
 										);
 									})}
 								</div>
-							</div>
+							</fieldset>
 
-							<div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-								<h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-									<Palette className="w-5 h-5 mr-2 text-blue-500" />
-									{t.generator.colors}
-								</h3>
+							<fieldset className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+								<legend className="w-full text-xl font-semibold text-gray-800 dark:text-white mb-4">
+									<span className="flex items-center">
+										<Palette aria-hidden="true" className="w-5 h-5 mr-2 text-blue-600" />
+										{t.generator.colors}
+									</span>
+								</legend>
 								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 									<div>
 										<label
@@ -292,6 +305,7 @@ const QRGenerator: React.FC = () => {
 										<div className="flex items-center space-x-3">
 											<input
 												id="foreground"
+												aria-label={t.generator.foreground}
 												type="color"
 												value={options.foregroundColor}
 												onChange={(e) =>
@@ -304,6 +318,8 @@ const QRGenerator: React.FC = () => {
 											/>
 											<input
 												type="text"
+												aria-label={t.generator.foregroundHex}
+												spellCheck={false}
 												value={options.foregroundColor}
 												onChange={(e) =>
 													setOptions({
@@ -325,6 +341,7 @@ const QRGenerator: React.FC = () => {
 										<div className="flex items-center space-x-3">
 											<input
 												id="background"
+												aria-label={t.generator.background}
 												type="color"
 												value={options.backgroundColor}
 												onChange={(e) =>
@@ -337,6 +354,8 @@ const QRGenerator: React.FC = () => {
 											/>
 											<input
 												type="text"
+												aria-label={t.generator.backgroundHex}
+												spellCheck={false}
 												value={options.backgroundColor}
 												onChange={(e) =>
 													setOptions({
@@ -349,7 +368,7 @@ const QRGenerator: React.FC = () => {
 										</div>
 									</div>
 								</div>
-							</div>
+							</fieldset>
 						</div>
 
 						{/* preview and download */}
@@ -362,33 +381,46 @@ const QRGenerator: React.FC = () => {
 									<div className="p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
 										<canvas
 											ref={canvasRef}
+											role="img"
+											aria-label={t.generator.previewLabel}
 											className="max-w-full h-auto rounded-lg shadow-md"
 											style={{ display: qrCodeDataURL ? "block" : "none" }}
 										/>
 										{!qrCodeDataURL && (
 											<div className="w-64 h-64 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-												<span className="text-gray-500 dark:text-gray-400">
+												<span className="text-gray-700 dark:text-gray-200">
 													{t.generator.emptyPreview}
 												</span>
 											</div>
 										)}
 									</div>
 								</div>
+								<p className="sr-only" role="status" aria-live="polite">
+									{qrCodeDataURL ? t.generator.previewReady : t.generator.emptyPreview}
+								</p>
+								{generationError && (
+									<p
+										role="alert"
+										className="mb-4 rounded-lg bg-red-50 p-3 text-red-800 dark:bg-red-950 dark:text-red-200"
+									>
+										{t.generator.generationError}
+									</p>
+								)}
 
 								{qrCodeDataURL && (
 									<div className="flex flex-col sm:flex-row gap-4 justify-center">
 										<button
 											onClick={() => downloadQR("png")}
-											className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
+											className="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
 										>
-											<Download className="w-5 h-5 mr-2" />
+											<Download aria-hidden="true" className="w-5 h-5 mr-2" />
 											{t.generator.downloadPng}
 										</button>
 										<button
 											onClick={() => downloadQR("svg")}
-											className="flex items-center justify-center px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
+											className="flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 hover:cursor-pointer"
 										>
-											<Download className="w-5 h-5 mr-2" />
+											<Download aria-hidden="true" className="w-5 h-5 mr-2" />
 											{t.generator.downloadSvg}
 										</button>
 									</div>

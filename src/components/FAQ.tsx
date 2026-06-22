@@ -1,4 +1,5 @@
 import { useLocale } from "../context/Locale";
+import { ChevronDown } from "lucide-react";
 
 const FAQ = () => {
 	const { t } = useLocale();
@@ -18,8 +19,12 @@ const FAQ = () => {
 							key={item.question}
 							className="group rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6"
 						>
-							<summary className="cursor-pointer list-none text-lg font-semibold text-gray-800 dark:text-white">
-								{item.question}
+							<summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-lg text-lg font-semibold text-gray-800 dark:text-white">
+								<span>{item.question}</span>
+								<ChevronDown
+									aria-hidden="true"
+									className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180"
+								/>
 							</summary>
 							<p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">{item.answer}</p>
 						</details>

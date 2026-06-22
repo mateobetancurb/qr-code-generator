@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { LocaleProvider } from "../context/Locale";
+import * as qrRenderer from "../utils/qrRenderer";
 import QRGenerator from "./QRGenerator";
 
 const renderGenerator = () => render(<QRGenerator />, { wrapper: LocaleProvider });
@@ -11,7 +12,7 @@ describe("QRGenerator", () => {
 		const user = userEvent.setup();
 		renderGenerator();
 
-		expect(screen.getByText("Enter text to generate QR code")).toBeVisible();
+		expect(screen.getByRole("status")).toHaveTextContent("Enter text to generate QR code");
 		await user.type(screen.getByLabelText("Text or URL"), "https://example.com");
 
 		await waitFor(() => expect(screen.getByRole("button", { name: "Download PNG" })).toBeVisible());
@@ -20,6 +21,8 @@ describe("QRGenerator", () => {
 		await user.selectOptions(screen.getByRole("combobox"), "large");
 		await user.click(screen.getByRole("button", { name: "Dots" }));
 		expect(screen.getByRole("button", { name: "Dots" })).toHaveAttribute("aria-pressed", "true");
+		expect(screen.getByRole("img", { name: "Generated QR code preview" })).toBeVisible();
+		expect(screen.getByRole("status")).toHaveTextContent("QR code preview ready");
 		expect(document.querySelector("canvas")).toHaveAttribute("width", "400");
 	});
 
@@ -49,6 +52,32 @@ describe("QRGenerator", () => {
 		await user.clear(input);
 
 		await waitFor(() => expect(screen.queryByRole("button", { name: "Download PNG" })).toBeNull());
-		expect(screen.getByText("Enter text to generate QR code")).toBeVisible();
+		expect(screen.getByRole("status")).toHaveTextContent("Enter text to generate QR code");
+	});
+
+	it("provides distinct accessible names for every customization control", () => {
+		renderGenerator();
+
+		expect(screen.getByRole("combobox", { name: "Size" })).toBeVisible();
+		expect(screen.getByLabelText("Foreground")).toHaveAttribute("type", "color");
+		expect(screen.getByLabelText("Foreground hex color")).toHaveAttribute("type", "text");
+		expect(screen.getByLabelText("Background")).toHaveAttribute("type", "color");
+		expect(screen.getByLabelText("Background hex color")).toHaveAttribute("type", "text");
+	});
+
+	it("announces QR generation failures", async () => {
+		vi.spyOn(console, "error").mockImplementation(() => undefined);
+		vi.spyOn(qrRenderer, "renderQRToCanvas").mockImplementation(() => {
+			throw new Error("render failed");
+		});
+		const user = userEvent.setup();
+		renderGenerator();
+
+		await user.type(screen.getByLabelText("Text or URL"), "test");
+
+		expect(await screen.findByRole("alert")).toHaveTextContent(
+			"The QR code could not be generated",
+		);
+		expect(screen.queryByRole("button", { name: "Download PNG" })).toBeNull();
 	});
 });
