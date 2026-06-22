@@ -6,5 +6,4 @@ export interface QROptions {
 	moduleStyle: ModuleStyle;
 	foregroundColor: string;
 	backgroundColor: string;
-	logo?: string;
 }

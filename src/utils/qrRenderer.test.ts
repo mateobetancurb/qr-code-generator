@@ -19,6 +19,13 @@ const options = {
 	backgroundColor: "#abcdef",
 };
 
+const image = {
+	dataUrl: "data:image/png;base64,dGVzdA==",
+	source: document.createElement("img"),
+	width: 200,
+	height: 100,
+};
+
 describe("renderQRToSVG", () => {
 	it("renders dimensions, colors, modules, and a four-module quiet zone", () => {
 		const svg = renderQRToSVG(createQR([[0, 0]]), options);
@@ -55,6 +62,41 @@ describe("renderQRToSVG", () => {
 
 		expect(svg).toContain('fill="#000000"');
 		expect(svg).toContain('fill="#ffffff"');
+	});
+
+	it("embeds only the centered, aspect-ratio-preserving image", () => {
+		const svg = renderQRToSVG(createQR([[10, 10]]), { ...options, image });
+
+		expect(svg).toContain(
+			'<image href="data:image/png;base64,dGVzdA==" x="11.6" y="13.05" width="5.8" height="2.9" preserveAspectRatio="xMidYMid meet"/>',
+		);
+		expect(svg.match(/<rect/g)).toHaveLength(2);
+	});
+
+	it("scales and rounds an SVG image using safe option limits", () => {
+		const svg = renderQRToSVG(createQR([[10, 10]]), {
+			...options,
+			image,
+			imageSize: 0.3,
+			imageRadius: 0.5,
+		});
+
+		expect(svg).toContain(
+			'<clipPath id="qr-image-clip"><rect x="10.15" y="12.325" width="8.7" height="4.35" rx="2.175"/></clipPath>',
+		);
+		expect(svg).toContain('clip-path="url(#qr-image-clip)"');
+	});
+
+	it("adds an optional image background using its custom color", () => {
+		const svg = renderQRToSVG(createQR([[10, 10]]), {
+			...options,
+			image,
+			imageBackgroundColor: "#fedcba",
+		});
+
+		expect(svg).toContain(
+			'<rect x="11.02" y="11.02" width="6.96" height="6.96" rx="0.58" fill="#fedcba"/>',
+		);
 	});
 });
 
@@ -107,5 +149,81 @@ describe("renderQRToCanvas", () => {
 		expect(() => renderQRToCanvas(canvas, createQR([]), options)).toThrow(
 			"Canvas rendering is not supported",
 		);
+	});
+
+	it("draws only the uploaded image", () => {
+		const context = {
+			clearRect: vi.fn(),
+			fillRect: vi.fn(),
+			beginPath: vi.fn(),
+			arc: vi.fn(),
+			fill: vi.fn(),
+			roundRect: vi.fn(),
+			drawImage: vi.fn(),
+			fillStyle: "",
+		} as unknown as CanvasRenderingContext2D;
+		const canvas = document.createElement("canvas");
+		vi.spyOn(canvas, "getContext").mockReturnValue(context);
+
+		renderQRToCanvas(canvas, createQR([[10, 10]]), { ...options, image });
+
+		expect(context.roundRect).not.toHaveBeenCalled();
+		expect(context.fill).not.toHaveBeenCalled();
+		expect(context.drawImage).toHaveBeenCalledWith(image.source, 116, 130.5, 58, 29);
+	});
+
+	it("clips a resized canvas image to the selected corner radius", () => {
+		const context = {
+			clearRect: vi.fn(),
+			fillRect: vi.fn(),
+			beginPath: vi.fn(),
+			arc: vi.fn(),
+			fill: vi.fn(),
+			roundRect: vi.fn(),
+			drawImage: vi.fn(),
+			save: vi.fn(),
+			clip: vi.fn(),
+			restore: vi.fn(),
+			fillStyle: "",
+		} as unknown as CanvasRenderingContext2D;
+		const canvas = document.createElement("canvas");
+		vi.spyOn(canvas, "getContext").mockReturnValue(context);
+
+		renderQRToCanvas(canvas, createQR([[10, 10]]), {
+			...options,
+			image,
+			imageSize: 0.3,
+			imageRadius: 0.5,
+		});
+
+		expect(context.roundRect).toHaveBeenLastCalledWith(101.5, 123.25, 87, 43.5, 21.75);
+		expect(context.clip).toHaveBeenCalledOnce();
+		expect(context.drawImage).toHaveBeenCalledWith(image.source, 101.5, 123.25, 87, 43.5);
+		expect(context.restore).toHaveBeenCalledOnce();
+	});
+
+	it("draws an optional custom-colored background behind the canvas image", () => {
+		const context = {
+			clearRect: vi.fn(),
+			fillRect: vi.fn(),
+			beginPath: vi.fn(),
+			arc: vi.fn(),
+			fill: vi.fn(),
+			roundRect: vi.fn(),
+			drawImage: vi.fn(),
+			fillStyle: "",
+		} as unknown as CanvasRenderingContext2D;
+		const canvas = document.createElement("canvas");
+		vi.spyOn(canvas, "getContext").mockReturnValue(context);
+
+		renderQRToCanvas(canvas, createQR([[10, 10]]), {
+			...options,
+			image,
+			imageBackgroundColor: "#fedcba",
+		});
+
+		expect(context.roundRect).toHaveBeenCalledWith(110.2, 110.2, 69.6, 69.6, 5.8);
+		expect(context.fill).toHaveBeenCalledOnce();
+		expect(context.fillStyle).toBe("#fedcba");
 	});
 });
