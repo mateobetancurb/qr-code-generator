@@ -80,6 +80,37 @@ const { t } = Astro.props;
 							</div>
 						</div>
 					</fieldset>
+
+					<div class="control-group image-control">
+						<label for="qr-image">{t.generator.image}</label>
+						<p id="qr-image-hint" class="control-hint">{t.generator.imageHint}</p>
+						<label class="image-picker-button" data-image-select data-add={t.generator.selectImage} data-replace={t.generator.replaceImage}>
+							<Icon name="image" />
+							<span>{t.generator.selectImage}</span>
+							<input id="qr-image" data-qr-image class="sr-only" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="qr-image-hint qr-image-error" />
+						</label>
+						<div data-image-selection class="image-selection" hidden>
+							<img data-image-thumbnail alt="" />
+							<span data-image-name></span>
+							<button data-image-remove type="button" class="image-remove"><Icon name="remove" />{t.generator.removeImage}</button>
+						</div>
+						<div data-image-controls class="image-controls" hidden>
+							<div class="range-control">
+								<div><label for="qr-image-size">{t.generator.imageSize}</label><output data-image-size-output for="qr-image-size">20%</output></div>
+								<input id="qr-image-size" data-image-size type="range" min="10" max="30" step="1" value="20" />
+							</div>
+							<div class="range-control">
+								<div><label for="qr-image-radius">{t.generator.imageRadius}</label><output data-image-radius-output for="qr-image-radius">0%</output></div>
+								<input id="qr-image-radius" data-image-radius type="range" min="0" max="50" step="1" value="0" />
+							</div>
+							<label class="checkbox-control"><input data-image-background type="checkbox" /><span>{t.generator.imageBackground}</span></label>
+							<div data-image-background-controls class="color-control" hidden>
+								<label for="image-background">{t.generator.imageBackgroundColor}</label>
+								<div class="color-input-row"><input id="image-background" data-image-background-picker aria-label={t.generator.imageBackgroundColor} type="color" value="#ffffff" /><input data-image-background-text type="text" aria-label={t.generator.imageBackgroundHex} spellcheck="false" value="#ffffff" /></div>
+							</div>
+						</div>
+						<p id="qr-image-error" data-image-error role="alert" class="error-message image-error" data-type={t.generator.imageTypeError} data-size={t.generator.imageSizeError} data-decode={t.generator.imageDecodeError} hidden></p>
+					</div>
 				</div>
 			</details>
 		</div>
