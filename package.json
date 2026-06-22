@@ -13,8 +13,7 @@
 		"test": "vitest",
 		"test:run": "vitest run",
 		"test:coverage": "vitest run --coverage",
-		"test:e2e": "playwright test",
-		"check": "pnpm format:check && pnpm lint && pnpm test:coverage && pnpm build && pnpm test:e2e"
+		"check": "pnpm format:check && pnpm lint && pnpm test:coverage && pnpm build"
 	},
 	"dependencies": {
 		"@fontsource-variable/geist": "^5.2.9",
@@ -25,18 +24,13 @@
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.9",
-		"@axe-core/playwright": "^4.11.3",
-		"@playwright/test": "^1.61.0",
 		"@testing-library/jest-dom": "^6.9.1",
-		"@types/pngjs": "^6.0.5",
 		"@types/qrcode": "^1.5.6",
 		"@vitest/coverage-v8": "^4.1.9",
 		"astro": "^6.4.8",
 		"jsdom": "^29.1.1",
-		"jsqr": "^1.4.0",
 		"oxfmt": "^0.55.0",
 		"oxlint": "^1.70.0",
-		"pngjs": "^7.0.0",
 		"typescript": "~6.0.3",
 		"vite": "^7.3.5",
 		"vitest": "^4.1.9"

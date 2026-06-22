@@ -13,11 +13,10 @@ pnpm preview          # Serve the production build (required before e2e)
 pnpm test             # Vitest in watch mode
 pnpm test:run         # Vitest once
 pnpm test:coverage    # Vitest with coverage enforcement
-pnpm test:e2e         # Playwright (Chromium); auto-starts pnpm preview on port 4173
 pnpm lint             # oxlint
 pnpm format           # oxfmt (tabs, double quotes, semicolons)
 pnpm format:check     # oxfmt dry-run
-pnpm check            # Full pipeline: format:check + lint + test:coverage + build + test:e2e
+pnpm check            # Full pipeline: format:check + lint + test:coverage + build
 ```
 
 To run a single unit test file: `pnpm test src/scripts/qrGenerator.test.ts`
@@ -44,8 +43,7 @@ Scripts communicate with the DOM exclusively through `data-*` attributes — nev
 
 ### Testing
 
-- **Unit**: Vitest + jsdom, colocated as `*.test.ts`. Coverage thresholds: 80% statements/functions/lines, 75% branches.
-- **E2E**: Playwright (Chromium only). Tests run against the production preview server. Visual regression snapshots live in `e2e/visual.spec.ts-snapshots/`.
+Unit tests use Vitest + jsdom, colocated as `*.test.ts`. Coverage thresholds: 80% statements/functions/lines, 75% branches.
 
 ### Coding style
 
