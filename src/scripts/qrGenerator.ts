@@ -2,10 +2,19 @@ import QRCode from "qrcode";
 import type { ModuleStyle, QROptions } from "../interfaces";
 import { generateFilename, sizeMap } from "../utils";
 import { renderQRToCanvas, renderQRToSVG } from "../utils/qrRenderer";
+import {
+	readQRGeneratorState,
+	writeQRGeneratorState,
+	type QRGeneratorState,
+} from "./qrGeneratorState";
+
+let initializedRoot: HTMLElement | null = null;
+let cleanupCurrentRoot: (() => void) | null = null;
 
 export const initQRGenerator = (): void => {
 	const root = document.querySelector<HTMLElement>("[data-qr-generator]");
 	if (!root) return;
+	if (root === initializedRoot) return;
 	const text = root.querySelector<HTMLTextAreaElement>("[data-qr-text]");
 	const size = root.querySelector<HTMLSelectElement>("[data-qr-size]");
 	const canvas = root.querySelector<HTMLCanvasElement>("[data-qr-canvas]");
@@ -14,6 +23,8 @@ export const initQRGenerator = (): void => {
 	const error = root.querySelector<HTMLElement>("[data-qr-error]");
 	const downloads = root.querySelector<HTMLElement>("[data-downloads]");
 	if (!text || !size || !canvas || !emptyPreview || !status || !error || !downloads) return;
+	cleanupCurrentRoot?.();
+	initializedRoot = root;
 
 	const options: QROptions = {
 		text: "",
@@ -25,11 +36,47 @@ export const initQRGenerator = (): void => {
 	let dataURL = "";
 	const customization = root.querySelector<HTMLDetailsElement>("[data-customization]");
 	const desktop = window.matchMedia("(min-width: 56rem)");
+	const storedState = readQRGeneratorState();
+	let preferredCustomizationOpen = storedState?.customizationOpen ?? false;
+	if (storedState) {
+		Object.assign(options, {
+			text: storedState.text,
+			size: storedState.size,
+			moduleStyle: storedState.moduleStyle,
+			foregroundColor: storedState.foregroundColor,
+			backgroundColor: storedState.backgroundColor,
+		});
+		text.value = storedState.text;
+		size.value = storedState.size;
+		for (const button of root.querySelectorAll<HTMLButtonElement>("[data-module-style]")) {
+			const selected = button.dataset.moduleStyle === storedState.moduleStyle;
+			button.setAttribute("aria-pressed", String(selected));
+			button.classList.toggle("is-selected", selected);
+		}
+		for (const kind of ["foreground", "background"] as const) {
+			const color =
+				kind === "foreground" ? storedState.foregroundColor : storedState.backgroundColor;
+			const picker = root.querySelector<HTMLInputElement>(`[data-color-picker="${kind}"]`);
+			const colorText = root.querySelector<HTMLInputElement>(`[data-color-text="${kind}"]`);
+			if (picker) picker.value = color;
+			if (colorText) colorText.value = color;
+		}
+	}
+	const persist = (): void => {
+		writeQRGeneratorState({
+			version: 1,
+			...options,
+			text: text.value,
+			customizationOpen: preferredCustomizationOpen,
+		} satisfies QRGeneratorState);
+	};
 	const syncCustomization = (): void => {
-		if (customization) customization.open = desktop.matches;
+		if (!customization) return;
+		customization.open = desktop.matches || (storedState?.customizationOpen ?? false);
 	};
 	syncCustomization();
 	desktop.addEventListener("change", syncCustomization);
+	cleanupCurrentRoot = () => desktop.removeEventListener("change", syncCustomization);
 
 	const render = (): void => {
 		options.text = text.value;
@@ -40,6 +87,7 @@ export const initQRGenerator = (): void => {
 			downloads.hidden = true;
 			error.hidden = true;
 			status.textContent = status.dataset.empty ?? "";
+			persist();
 			return;
 		}
 		try {
@@ -56,6 +104,7 @@ export const initQRGenerator = (): void => {
 			downloads.hidden = false;
 			error.hidden = true;
 			status.textContent = status.dataset.ready ?? "";
+			persist();
 		} catch (caught) {
 			console.error("Error generating QR code:", caught);
 			dataURL = "";
@@ -98,6 +147,10 @@ export const initQRGenerator = (): void => {
 			render();
 		});
 	}
+	customization?.addEventListener("toggle", () => {
+		if (!desktop.matches) preferredCustomizationOpen = customization.open;
+		persist();
+	});
 
 	root.querySelector<HTMLButtonElement>('[data-download="png"]')?.addEventListener("click", () => {
 		if (!dataURL) return;
@@ -121,4 +174,5 @@ export const initQRGenerator = (): void => {
 		link.click();
 		URL.revokeObjectURL(url);
 	});
+	render();
 };

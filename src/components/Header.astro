@@ -21,8 +21,8 @@ const languageClass = (language: Locale) =>
 		</a>
 		<div class="header-actions">
 			<div class="language-switcher" role="group" aria-label={t.header.language}>
-				<a href={localePath.en} class={languageClass("en")} lang="en" aria-current={locale === "en" ? "page" : undefined}>EN</a>
-				<a href={localePath.es} class={languageClass("es")} lang="es" aria-current={locale === "es" ? "page" : undefined}>ES</a>
+				<a data-language-link href={localePath.en} class={languageClass("en")} lang="en" aria-current={locale === "en" ? "page" : undefined}>EN</a>
+				<a data-language-link href={localePath.es} class={languageClass("es")} lang="es" aria-current={locale === "es" ? "page" : undefined}>ES</a>
 			</div>
 			<button data-theme-toggle type="button" aria-label={t.header.switchToDark} data-dark-label={t.header.switchToDark} data-light-label={t.header.switchToLight} class="icon-button">
 				<Icon name="moon" class="theme-moon" />
@@ -33,6 +33,9 @@ const languageClass = (language: Locale) =>
 </header>
 
 <script>
+	import { initLanguageNavigation } from "../scripts/languageNavigation";
 	import { initTheme } from "../scripts/theme";
+	initLanguageNavigation();
 	initTheme();
+	document.addEventListener("astro:page-load", initTheme);
 </script>

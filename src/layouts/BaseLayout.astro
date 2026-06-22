@@ -1,5 +1,6 @@
 ---
 import "../index.css";
+import { ClientRouter } from "astro:transitions";
 import type { Locale, Translation } from "../i18n/types";
 
 interface Props {
@@ -47,7 +48,7 @@ const structuredData = {
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} transition:animate="none">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,6 +57,7 @@ const structuredData = {
 		<meta name="author" content="Mateo Betancur" />
 		<meta name="robots" content="index, follow, max-image-preview:large" />
 		<meta name="theme-color" content="#2563eb" />
+		<ClientRouter fallback="swap" />
 		<link rel="icon" type="image/svg+xml" href="/qr-favicon.svg" />
 		<link rel="canonical" href={canonical} />
 		<link rel="alternate" hreflang="en" href={`${site}/`} />
@@ -81,8 +83,11 @@ const structuredData = {
 		<script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 		<script is:inline>
 			(function () {
-				const savedMode = localStorage.getItem("darkMode");
-				const isDark = savedMode === null ? window.matchMedia("(prefers-color-scheme: dark)").matches : savedMode === "true";
+				let savedMode = null;
+				try {
+					savedMode = localStorage.getItem("darkMode");
+				} catch {}
+				const isDark = savedMode === "true" || (savedMode !== "false" && window.matchMedia("(prefers-color-scheme: dark)").matches);
 				if (isDark) document.documentElement.classList.add("dark");
 			})();
 		</script>
