@@ -79,4 +79,41 @@ describe("initQRGenerator", () => {
 		renderGenerator();
 		expect(document.querySelector("[data-customization]")).not.toHaveAttribute("open");
 	});
+
+	it("restores persisted controls and generated preview", () => {
+		sessionStorage.setItem(
+			"qr-generator-state",
+			JSON.stringify({
+				version: 1,
+				text: "QR persistido",
+				size: "large",
+				moduleStyle: "dots",
+				foregroundColor: "#123456",
+				backgroundColor: "#fefefe",
+				customizationOpen: true,
+			}),
+		);
+		const view = renderGenerator();
+
+		expect(view.text).toHaveValue("QR persistido");
+		expect(view.size).toHaveValue("large");
+		expect(document.querySelector('[data-module-style="dots"]')).toHaveAttribute(
+			"aria-pressed",
+			"true",
+		);
+		expect(document.querySelector('[data-color-text="foreground"]')).toHaveValue("#123456");
+		expect(document.querySelector('[data-color-text="background"]')).toHaveValue("#fefefe");
+		expect(document.querySelector("[data-customization]")).toHaveAttribute("open");
+		expect(view.canvas).not.toHaveAttribute("hidden");
+	});
+
+	it("does not attach duplicate listeners to the same document", () => {
+		const view = renderGenerator();
+		const renderCanvas = vi.spyOn(renderer, "renderQRToCanvas");
+		initQRGenerator();
+		renderCanvas.mockClear();
+
+		input(view.text, "single update");
+		expect(renderCanvas).toHaveBeenCalledOnce();
+	});
 });

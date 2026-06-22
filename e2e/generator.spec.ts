@@ -161,4 +161,43 @@ test.describe("localized SEO", () => {
 		await expect(page.getByRole("button", { name: "Download PNG" })).toBeVisible();
 		await expect(page.getByRole("button", { name: "Download SVG" })).toBeVisible();
 	});
+
+	test("switches language without reloading or losing generator state and scroll", async ({
+		page,
+	}) => {
+		await page.goto("/");
+		await page.getByLabel("Text or URL").fill("QR persistido ñ");
+		await page.locator("[data-qr-size]").selectOption("large");
+		await page.locator('[data-module-style="dots"]').click();
+		await page.locator('[data-color-text="foreground"]').fill("#123456");
+		await page.locator('[data-color-text="background"]').fill("#fefefe");
+		await page.evaluate(() => window.scrollTo({ top: 480, behavior: "instant" as ScrollBehavior }));
+		const scrollBefore = await page.evaluate(() => window.scrollY);
+
+		await page
+			.getByRole("link", { name: "ES", exact: true })
+			.evaluate((link: HTMLAnchorElement) => link.click());
+		await expect(page).toHaveURL(/\/es\/$/);
+		await expect(page.locator("html")).toHaveAttribute("lang", "es");
+		await expect(page.getByRole("heading", { level: 1, name: /crea tu código qr/i })).toBeVisible();
+		await expect(page.locator("[data-qr-text]")).toHaveValue("QR persistido ñ");
+		await expect(page.locator("[data-qr-size]")).toHaveValue("large");
+		await expect(page.locator('[data-module-style="dots"]')).toHaveAttribute(
+			"aria-pressed",
+			"true",
+		);
+		await expect(page.locator('[data-color-text="foreground"]')).toHaveValue("#123456");
+		await expect(page.locator('[data-color-text="background"]')).toHaveValue("#fefefe");
+		await expect(page.locator("[data-qr-canvas]")).toBeVisible();
+		expect(await page.evaluate(() => performance.getEntriesByType("navigation").length)).toBe(1);
+		expect(
+			Math.abs((await page.evaluate(() => window.scrollY)) - scrollBefore),
+		).toBeLessThanOrEqual(2);
+
+		await page
+			.getByRole("link", { name: "EN", exact: true })
+			.evaluate((link: HTMLAnchorElement) => link.click());
+		await expect(page).toHaveURL(/\/$/);
+		await expect(page.locator("[data-qr-text]")).toHaveValue("QR persistido ñ");
+	});
 });

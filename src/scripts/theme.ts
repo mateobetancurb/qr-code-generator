@@ -13,6 +13,8 @@ export const initTheme = (): void => {
 	const isDark = document.documentElement.classList.contains("dark");
 	updateThemeControls(isDark);
 	for (const button of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
+		if (button.dataset.themeInitialized === "true") continue;
+		button.dataset.themeInitialized = "true";
 		button.addEventListener("click", () => {
 			const nextIsDark = !document.documentElement.classList.contains("dark");
 			document.documentElement.classList.toggle("dark", nextIsDark);

@@ -30,6 +30,7 @@ const createCanvasContext = (): CanvasRenderingContext2D =>
 
 beforeEach(() => {
 	localStorage.clear();
+	sessionStorage.clear();
 	window.history.replaceState({}, "", "/");
 	Object.defineProperty(window, "matchMedia", {
 		configurable: true,
