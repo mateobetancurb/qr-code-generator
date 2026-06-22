@@ -2,14 +2,14 @@
 
 ## Project Structure & Module Organization
 
-Application code lives in `src/`. React UI components are in `src/components/`, shared providers in `src/context/`, QR rendering and helpers in `src/utils/`, and localization code in `src/i18n/` with English and Spanish dictionaries under `locales/`. Keep shared types in `src/interfaces/`. Unit tests are colocated with source files as `*.test.ts` or `*.test.tsx`; browser tests live in `e2e/`. Static assets and deployment files belong in `public/`. The root `index.html` and `es/index.html` are Vite entry points for localized pages.
+Application code lives in `src/`. Astro UI components are in `src/components/`, shared layouts in `src/layouts/`, routes in `src/pages/`, and framework-free browser controllers in `src/scripts/`. QR rendering and helpers live in `src/utils/`; localization code is in `src/i18n/` with English and Spanish dictionaries under `locales/`. Keep shared types in `src/interfaces/`. Unit tests are colocated with TypeScript as `*.test.ts`; browser tests live in `e2e/`. Static assets and deployment files belong in `public/`.
 
 ## Build, Test, and Development Commands
 
 Use pnpm 11 (declared in `package.json`).
 
 - `pnpm install` installs dependencies from `pnpm-lock.yaml`.
-- `pnpm dev` starts the Vite development server.
+- `pnpm dev` starts the Astro development server.
 - `pnpm build` type-checks with TypeScript and writes the production build to `dist/`.
 - `pnpm test` runs Vitest in watch mode; `pnpm test:run` runs it once.
 - `pnpm test:coverage` runs unit tests with coverage enforcement.
@@ -19,11 +19,11 @@ Use pnpm 11 (declared in `package.json`).
 
 ## Coding Style & Naming Conventions
 
-Write strict TypeScript and functional React components. Follow the existing oxfmt output: tabs for indentation, double quotes, and semicolons. Use PascalCase for components and context modules (`QRGenerator.tsx`, `DarkMode.tsx`), camelCase for functions and utilities, and descriptive test names. Prefer colocating component-specific behavior; move reusable logic into `utils/` or shared types into `interfaces/`. Run `pnpm format` before committing and fix all oxlint findings.
+Write strict TypeScript, static Astro components, and focused framework-free client controllers. Follow the existing oxfmt output: tabs for indentation, double quotes, and semicolons. Use PascalCase for Astro components (`QRGenerator.astro`), camelCase for functions and utilities, and descriptive test names. Keep browser behavior in `scripts/`, reusable logic in `utils/`, and shared types in `interfaces/`. Run `pnpm format` before committing and fix all oxlint findings.
 
 ## Testing Guidelines
 
-Use Vitest, Testing Library, and `jest-dom` for unit and component tests. Test observable behavior rather than implementation details. Coverage must remain at least 80% for statements, functions, and lines, and 75% for branches. Add Playwright coverage for user-facing workflows and accessibility checks under `e2e/`. Run `pnpm check` before opening a pull request.
+Use Vitest, jsdom, and `jest-dom` for unit and controller tests. Test observable behavior rather than implementation details. Coverage must remain at least 80% for statements, functions, and lines, and 75% for branches. Add Playwright coverage for user-facing workflows, static rendering, and accessibility checks under `e2e/`. Run `pnpm check` before opening a pull request.
 
 ## Commit & Pull Request Guidelines
 
