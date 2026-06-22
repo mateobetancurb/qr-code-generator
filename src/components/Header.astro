@@ -1,0 +1,81 @@
+---
+import { localePath } from "../i18n/localeRouting";
+import type { Locale, Translation } from "../i18n/types";
+import Icon from "./Icon.astro";
+
+interface Props {
+	locale: Locale;
+	t: Translation;
+}
+
+const { locale, t } = Astro.props;
+const linkClass = "text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200";
+const languageClass = (language: Locale) =>
+	`min-h-6 min-w-6 px-2 py-1 text-sm font-medium transition-colors duration-200 hover:cursor-pointer ${locale === language ? "text-blue-700 dark:text-blue-300" : "text-gray-600 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300"}`;
+---
+
+<header data-header class="fixed w-full top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 transition-all duration-300">
+	<div class="container mx-auto px-4 py-4">
+		<div class="flex items-center justify-between">
+			<a href="#home" class="flex items-center space-x-2" aria-label={t.header.home}>
+				<div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
+					<Icon name="qr-code" class="w-6 h-6 text-white" />
+				</div>
+				<span class="text-xl font-bold text-gray-800 dark:text-white">QRGenerator</span>
+			</a>
+
+			<nav aria-label={t.header.primaryNavigation} class="hidden md:flex items-center space-x-8">
+				<a href="#home" class={linkClass}>{t.header.home}</a>
+				<a href="#generator" class={linkClass}>{t.header.generateQr}</a>
+				<a href="#features" class={linkClass}>{t.header.features}</a>
+				<a href="#how-it-works" class={linkClass}>{t.header.howItWorks}</a>
+				<a href="#faq" class={linkClass}>{t.header.faq}</a>
+				<div class="flex items-center gap-1" role="group" aria-label={t.header.language}>
+					<a href={localePath.en} class={languageClass("en")} lang="en" aria-current={locale === "en" ? "page" : undefined}>EN</a>
+					<span aria-hidden="true" class="text-gray-300 dark:text-gray-600">|</span>
+					<a href={localePath.es} class={languageClass("es")} lang="es" aria-current={locale === "es" ? "page" : undefined}>ES</a>
+				</div>
+				<button data-theme-toggle type="button" aria-label={t.header.switchToDark} data-dark-label={t.header.switchToDark} data-light-label={t.header.switchToLight} class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 hover:cursor-pointer">
+					<Icon name="moon" class="theme-moon w-5 h-5 text-gray-700" />
+					<Icon name="sun" class="theme-sun hidden w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+				</button>
+			</nav>
+
+			<div class="md:hidden flex items-center space-x-2">
+				<div class="flex items-center gap-1" role="group" aria-label={t.header.language}>
+					<a href={localePath.en} class={languageClass("en")} lang="en" aria-current={locale === "en" ? "page" : undefined}>EN</a>
+					<span aria-hidden="true" class="text-gray-300 dark:text-gray-600">|</span>
+					<a href={localePath.es} class={languageClass("es")} lang="es" aria-current={locale === "es" ? "page" : undefined}>ES</a>
+				</div>
+				<button data-theme-toggle type="button" aria-label={t.header.switchToDark} data-dark-label={t.header.switchToDark} data-light-label={t.header.switchToLight} class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200">
+					<Icon name="moon" class="theme-moon w-5 h-5 text-gray-700" />
+					<Icon name="sun" class="theme-sun hidden w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+				</button>
+				<button data-menu-toggle type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label={t.header.openMenu} data-open-label={t.header.openMenu} data-close-label={t.header.closeMenu} class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200">
+					<Icon name="menu" class="menu-open-icon w-6 h-6 text-gray-700 dark:text-gray-300" />
+					<Icon name="x" class="menu-close-icon hidden w-6 h-6 text-gray-700 dark:text-gray-300" />
+				</button>
+			</div>
+		</div>
+
+		<div id="mobile-navigation" data-mobile-navigation class="md:hidden mt-4 border-t border-gray-200 dark:border-gray-700" hidden>
+			<div class="py-4">
+				<nav aria-label={t.header.mobileNavigation} class="flex flex-col space-y-4">
+					<a href="#home" class={linkClass}>{t.header.home}</a>
+					<a href="#generator" class={linkClass}>{t.header.generateQr}</a>
+					<a href="#features" class={linkClass}>{t.header.features}</a>
+					<a href="#how-it-works" class={linkClass}>{t.header.howItWorks}</a>
+					<a href="#faq" class={linkClass}>{t.header.faq}</a>
+				</nav>
+			</div>
+		</div>
+	</div>
+</header>
+
+<script>
+	import { initNavigation } from "../scripts/navigation";
+	import { initTheme } from "../scripts/theme";
+
+	initTheme();
+	initNavigation();
+</script>

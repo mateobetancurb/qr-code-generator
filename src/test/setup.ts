@@ -1,5 +1,4 @@
 import "@testing-library/jest-dom/vitest";
-import { cleanup } from "@testing-library/react";
 import { afterEach, beforeEach, vi } from "vitest";
 
 const storage = new Map<string, string>();
@@ -67,7 +66,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-	cleanup();
+	document.body.replaceChildren();
 	document.documentElement.className = "";
 	vi.restoreAllMocks();
 });

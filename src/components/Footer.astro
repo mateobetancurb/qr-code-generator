@@ -1,0 +1,26 @@
+---
+import type { Translation } from "../i18n/types";
+import Icon from "./Icon.astro";
+interface Props { t: Translation }
+const { t } = Astro.props;
+const year = new Date().getFullYear();
+const links = [["#home", t.footer.home], ["#generator", t.footer.qrGenerator], ["#features", t.footer.features], ["#how-it-works", t.footer.howItWorks], ["#faq", t.footer.faq]];
+---
+
+<footer id="contact" class="bg-gray-900 dark:bg-black text-white transition-colors duration-300">
+	<div class="container mx-auto px-4 py-16">
+		<div class="md:flex md:justify-between">
+			<div class="lg:col-span-2">
+				<div class="flex items-center space-x-2 mb-4"><div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center"><Icon name="qr-code" class="w-6 h-6 text-white" /></div><span class="text-2xl font-bold">QRGenerator</span></div>
+				<p class="text-gray-300 mb-6 max-w-md leading-relaxed">{t.footer.tagline}</p>
+				<nav aria-label={t.footer.socialLinks} class="flex space-x-4 mb-5 md:mb-0">
+					<a href="https://github.com/mateobetancurb" target="_blank" rel="noopener noreferrer" aria-label={t.footer.github} class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"><Icon name="github" class="w-5 h-5" /></a>
+					<a href="https://twitter.com/mateobetancurb" target="_blank" rel="noopener noreferrer" aria-label={t.footer.twitter} class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"><Icon name="twitter" class="w-5 h-5" /></a>
+					<a href="https://linkedin.com/in/mateobetancurb" target="_blank" rel="noopener noreferrer" aria-label={t.footer.linkedin} class="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"><Icon name="linkedin" class="w-5 h-5" /></a>
+				</nav>
+			</div>
+			<nav aria-label={t.footer.quickLinks}><h3 class="text-lg font-semibold mb-4">{t.footer.quickLinks}</h3><ul class="space-y-2">{links.map(([href, label]) => <li><a href={href} class="text-gray-300 hover:text-blue-400 transition-colors duration-200 hover:cursor-pointer">{label}</a></li>)}</ul></nav>
+		</div>
+		<div class="border-t border-gray-800 mt-12 pt-8"><div class="flex flex-col md:flex-row items-center justify-between"><div class="flex flex-col items-center"><div class="flex items-center text-gray-400 mb-4 md:mb-0"><span>{t.footer.copyright.replace("{year}", String(year))}</span></div><p class="text-gray-400 mb-4 md:mb-0">{t.footer.madeWith}</p></div><p class="text-gray-400">{t.footer.locallyGenerated}</p></div></div>
+	</div>
+</footer>

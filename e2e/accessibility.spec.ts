@@ -41,7 +41,7 @@ test("mobile menu is a keyboard-operable disclosure", async ({ page }) => {
 	expect(results.violations).toEqual([]);
 
 	await page.keyboard.press("Escape");
-	await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toHaveCount(0);
+	await expect(page.locator("#mobile-navigation")).toBeHidden();
 	await expect(menuButton).toBeFocused();
 });
 

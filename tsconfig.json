@@ -1,4 +1,11 @@
 {
-	"files": [],
-	"references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }]
+	"extends": "astro/tsconfigs/strict",
+	"compilerOptions": {
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedSideEffectImports": true
+	},
+	"include": [".astro/types.d.ts", "src/**/*", "astro.config.ts", "vitest.config.ts"],
+	"exclude": ["dist"]
 }
