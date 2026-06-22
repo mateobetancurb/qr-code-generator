@@ -3,23 +3,6 @@ import type { ModuleStyle, QROptions } from "../interfaces";
 import { generateFilename, sizeMap } from "../utils";
 import { renderQRToCanvas, renderQRToSVG } from "../utils/qrRenderer";
 
-const selectedClasses = [
-	"border-blue-600",
-	"bg-blue-50",
-	"text-blue-800",
-	"dark:border-blue-400",
-	"dark:bg-blue-900/40",
-	"dark:text-blue-200",
-];
-const unselectedClasses = [
-	"border-gray-200",
-	"text-gray-700",
-	"hover:border-blue-300",
-	"dark:border-gray-700",
-	"dark:text-gray-300",
-	"dark:hover:border-blue-700",
-];
-
 export const initQRGenerator = (): void => {
 	const root = document.querySelector<HTMLElement>("[data-qr-generator]");
 	if (!root) return;
@@ -40,6 +23,13 @@ export const initQRGenerator = (): void => {
 		backgroundColor: "#ffffff",
 	};
 	let dataURL = "";
+	const customization = root.querySelector<HTMLDetailsElement>("[data-customization]");
+	const desktop = window.matchMedia("(min-width: 56rem)");
+	const syncCustomization = (): void => {
+		if (customization) customization.open = desktop.matches;
+	};
+	syncCustomization();
+	desktop.addEventListener("change", syncCustomization);
 
 	const render = (): void => {
 		options.text = text.value;
@@ -87,8 +77,7 @@ export const initQRGenerator = (): void => {
 			for (const candidate of root.querySelectorAll<HTMLButtonElement>("[data-module-style]")) {
 				const selected = candidate === button;
 				candidate.setAttribute("aria-pressed", String(selected));
-				candidate.classList.remove(...(selected ? unselectedClasses : selectedClasses));
-				candidate.classList.add(...(selected ? selectedClasses : unselectedClasses));
+				candidate.classList.toggle("is-selected", selected);
 			}
 			render();
 		});

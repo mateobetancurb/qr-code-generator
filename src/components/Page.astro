@@ -1,11 +1,8 @@
 ---
 import type { Locale, Translation } from "../i18n/types";
 import FAQ from "./FAQ.astro";
-import Features from "./Features.astro";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
-import Hero from "./Hero.astro";
-import HowItWorks from "./HowItWorks.astro";
 import QRGenerator from "./QRGenerator.astro";
 
 interface Props {
@@ -15,14 +12,11 @@ interface Props {
 const { locale, t } = Astro.props;
 ---
 
-<div class="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-	<a href="#main-content" class="fixed left-4 top-2 z-[100] -translate-y-20 rounded-lg bg-white px-4 py-3 font-semibold text-blue-700 shadow-lg transition-transform focus:translate-y-0 dark:bg-gray-900 dark:text-blue-300">{t.header.skipToContent}</a>
+<div class="site-shell">
+	<a href="#main-content" class="skip-link">{t.header.skipToContent}</a>
 	<Header {locale} {t} />
 	<main id="main-content" tabindex="-1">
-		<Hero {t} />
 		<QRGenerator {t} />
-		<Features {t} />
-		<HowItWorks {t} />
 		<FAQ {t} />
 	</main>
 	<Footer {t} />

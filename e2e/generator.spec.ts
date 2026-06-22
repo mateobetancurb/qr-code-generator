@@ -74,14 +74,14 @@ test.describe("localized SEO", () => {
 			lang: "en",
 			title: "Free QR Code Generator | Customize & Download",
 			canonical: "https://qr-code-generator-2pn.pages.dev/",
-			heading: /generate your qr code instantly/i,
+			heading: /create your qr code/i,
 		},
 		{
 			path: "/es/",
 			lang: "es",
 			title: "Generador de códigos QR gratis | Personaliza y descarga",
 			canonical: "https://qr-code-generator-2pn.pages.dev/es/",
-			heading: /crea tu código qr al instante/i,
+			heading: /crea tu código qr/i,
 		},
 	]) {
 		test(`${locale.path} exposes localized crawl metadata and content`, async ({ page }) => {
@@ -139,19 +139,26 @@ test.describe("localized SEO", () => {
 		const context = await browser.newContext({ javaScriptEnabled: false });
 		const page = await context.newPage();
 		await page.goto("/es/");
-		await expect(
-			page.getByRole("heading", { level: 1, name: /crea tu código qr al instante/i }),
-		).toBeVisible();
-		await expect(
-			page.getByRole("heading", { name: "Generador de códigos QR", exact: true }),
-		).toBeVisible();
-		await expect(
-			page.getByRole("heading", { name: /preguntas sobre el generador/i }),
-		).toBeVisible();
+		await expect(page.getByRole("heading", { level: 1, name: /crea tu código qr/i })).toBeVisible();
+		await expect(page.getByRole("heading", { name: "Contenido", exact: true })).toBeVisible();
+		await expect(page.getByRole("heading", { name: /preguntas frecuentes/i })).toBeVisible();
 		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
 			"href",
 			"https://qr-code-generator-2pn.pages.dev/es/",
 		);
 		await context.close();
+	});
+
+	test("moves immediately from empty preview to ready downloads", async ({ page }) => {
+		await page.goto("/");
+		await expect(page.locator("[data-empty-preview]")).toContainText(
+			"Your QR code will appear here",
+		);
+		await expect(page.getByRole("button", { name: "Download PNG" })).toBeHidden();
+
+		await page.getByLabel("Text or URL").fill("https://example.com");
+		await expect(page.getByLabel("Generated QR code preview")).toBeVisible();
+		await expect(page.getByRole("button", { name: "Download PNG" })).toBeVisible();
+		await expect(page.getByRole("button", { name: "Download SVG" })).toBeVisible();
 	});
 });

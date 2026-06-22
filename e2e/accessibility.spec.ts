@@ -29,20 +29,21 @@ test("skip link moves keyboard focus to the main content", async ({ page }) => {
 	await expect(page.getByRole("main")).toBeFocused();
 });
 
-test("mobile menu is a keyboard-operable disclosure", async ({ page }) => {
+test("mobile customization is a keyboard-operable disclosure with logical focus order", async ({
+	page,
+}) => {
 	await page.setViewportSize({ width: 375, height: 667 });
 	await page.goto("/");
-	const menuButton = page.getByRole("button", { name: /navigation menu/ });
-	await menuButton.focus();
+	const disclosure = page.locator("[data-customization]");
+	const summary = disclosure.locator("summary");
+	await expect(disclosure).not.toHaveAttribute("open");
+	await summary.focus();
 	await page.keyboard.press("Enter");
-	await expect(menuButton).toHaveAttribute("aria-expanded", "true");
-	await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toBeVisible();
+	await expect(disclosure).toHaveAttribute("open", "");
+	await page.keyboard.press("Tab");
+	await expect(page.getByRole("combobox", { name: "Size" })).toBeFocused();
 	const results = await new AxeBuilder({ page }).analyze();
 	expect(results.violations).toEqual([]);
-
-	await page.keyboard.press("Escape");
-	await expect(page.locator("#mobile-navigation")).toBeHidden();
-	await expect(menuButton).toBeFocused();
 });
 
 test("FAQ disclosures and generator controls remain keyboard accessible", async ({ page }) => {
@@ -73,7 +74,7 @@ test("page reflows without horizontal scrolling at 320 CSS pixels", async ({ pag
 test("reduced-motion preference minimizes transitions and animations", async ({ page }) => {
 	await page.emulateMedia({ reducedMotion: "reduce" });
 	await page.goto("/");
-	const motion = await page.getByRole("link", { name: "Get Started" }).evaluate((element) => {
+	const motion = await page.getByRole("button", { name: /dark mode/ }).evaluate((element) => {
 		const style = getComputedStyle(element);
 		return {
 			animationDuration: parseFloat(style.animationDuration),
